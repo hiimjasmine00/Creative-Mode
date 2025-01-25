@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Geode/Geode.hpp>
+#include "../ScrollLayerPro.hpp"
 
 using namespace geode::prelude;
 
@@ -12,7 +13,7 @@ protected:
     bool init(EditorUI* editorUI);
 private:
     EditorUI* m_editorUI;
-    ScrollLayer* m_scrollLayer;
+    ScrollLayerPro* m_scrollLayer;
     int m_tab;
 public:
     static constexpr float s_scaleMult = 0.8f;

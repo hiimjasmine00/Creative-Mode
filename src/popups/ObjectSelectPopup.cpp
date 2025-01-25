@@ -194,7 +194,8 @@ void ObjectSelectPopup::generateList(int tab){
     container->ignoreAnchorPointForPosition(true);
     container->updateLayout();
 
-    m_scrollLayer = ScrollLayer::create(contentSize);
+    m_scrollLayer = ScrollLayerPro::create(contentSize);
+    m_scrollLayer->addButtons(std::vector<Ref<CCMenuItem>>(buttons.begin(), buttons.end()));
     m_scrollLayer->setID("object-list");
     m_scrollLayer->ignoreAnchorPointForPosition(false);
     m_scrollLayer->m_contentLayer->setLayout(
