@@ -1,3 +1,6 @@
+# 1.0.2
+- Fix Touch Prio
+
 # 1.0.1
 - Draggable Scroll
 

@@ -238,6 +238,16 @@ void ObjectSelectPopup::generateList(int tab){
             slotOverlay->setVisible(static_cast<MyEditorUI*>(m_editorUI)->m_selectedObjectIndex == btn->getTag());
         }
     }
+
+    handleTouchPriority(this);
+
+    queueInMainThread([this] {
+        if (auto delegate = typeinfo_cast<CCTouchDelegate*>(m_scrollLayer)) {
+            if (auto handler = CCTouchDispatcher::get()->findHandler(delegate)) {
+                CCTouchDispatcher::get()->setPriority(handler->getPriority() - 1, handler->getDelegate());
+            }
+        }
+    });
 }
 
 bool ObjectSelectPopup::setup() {

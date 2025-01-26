@@ -2,13 +2,6 @@
 
 void ScrollLayerPro::addButtons(std::vector<Ref<CCMenuItem>> buttons) {
     m_buttons = buttons;
-    queueInMainThread([this] {
-        if (auto delegate = typeinfo_cast<CCTouchDelegate*>(this)) {
-            if (auto handler = CCTouchDispatcher::get()->findHandler(delegate)) {
-                CCTouchDispatcher::get()->setPriority(handler->getPriority() - 1, handler->getDelegate());
-            }
-        }
-    });
 }
 
 void ScrollLayerPro::setButtonsEnabled(bool on){

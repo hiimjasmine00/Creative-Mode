@@ -14,6 +14,7 @@ class $modify(MyEditorUI, EditorUI){
     }
 
 	struct Fields {
+		std::unordered_map<int, Ref<GameObject>> m_gameObjects;
 		std::unordered_map<int, std::vector<Ref<CCMenuItemSpriteExtra>>> m_tabObjects;
 		CCMenu* m_creativeMenu;
 	};
@@ -53,7 +54,8 @@ class $modify(MyEditorUI, EditorUI){
 			if (tab <= -1 || tab >= 13) continue;
 			if (!fields->m_tabObjects.contains(tab)) {
 				for (int id : buttonBar->m_fields->m_objectIDs) {
-					fields->m_tabObjects[tab].push_back(createObjectButton(id));
+
+					fields->m_tabObjects[tab].push_back(createObjectButton(id, fields));
 				}
 			}
 		}
@@ -68,7 +70,7 @@ class $modify(MyEditorUI, EditorUI){
 
 	void showUI(bool show) {
 		EditorUI::showUI(show);
-		m_fields->m_creativeMenu->setVisible(show);
+		if (m_selectedMode == 2) m_fields->m_creativeMenu->setVisible(show);
 	}
 
 	void onCreativeMenu(CCObject* sender) {
@@ -95,9 +97,21 @@ class $modify(MyEditorUI, EditorUI){
 		overlay->setVisible(true);
 	}
 
-	CCMenuItemSpriteExtra* createObjectButton(int id) {
-		auto fields = m_fields.self();
+	GameObject* createGameObject(int id, MyEditorUI::Fields* fields) {
+		if (fields->m_gameObjects.contains(id)) {
+			return fields->m_gameObjects[id];
+		}
+		else {
+			CreateMenuItem* cmi = getCreateBtn(id, 0);
+			ButtonSprite* buttonSprite = cmi->getChildByType<ButtonSprite*>(0);
+			GameObject* obj = buttonSprite->getChildByType<GameObject*>(0);
+			fields->m_gameObjects[id] = obj;
+			return obj;
+		}
+		return nullptr;
+	}
 
+	CCMenuItemSpriteExtra* createObjectButton(int id, MyEditorUI::Fields* fields) {
 		CCNode* objectContainer = CCNode::create();
 		CCSprite* slotSprite = CCSprite::create("slot.png"_spr);
 		CCSprite* slotOverlay = CCSprite::create("slot-overlay.png"_spr);
@@ -107,13 +121,8 @@ class $modify(MyEditorUI, EditorUI){
 		slotOverlay->setID("slot-overlay");
 		slotOverlay->setColor({255, 255, 0});
 		objectContainer->setAnchorPoint({1, 0.5});
-
-		CreateMenuItem* cmi = getCreateBtn(id, 0);
-		ButtonSprite* buttonSprite = cmi->getChildByType<ButtonSprite*>(0);
-		GameObject* object = buttonSprite->getChildByType<GameObject*>(0);
-
 		objectContainer->setScale(ObjectSelectPopup::s_scaleMult * 0.7);
-		objectContainer->addChild(object);
+		objectContainer->addChild(createGameObject(id, fields));
 
 		objectContainer->setContentSize({40, 40});
 
