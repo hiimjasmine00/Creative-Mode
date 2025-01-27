@@ -3,6 +3,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/CCEGLView.hpp>
 #include "../HoverableCCMenuItemSpriteExtra.hpp"
+#include "../LimitedCCMenu.hpp"
 
 using namespace geode::prelude;
 
@@ -20,7 +21,6 @@ public:
         }
 
         CCNode* currentNode = node;
-
         while (currentNode) {
             if (!currentNode->isVisible()) {
                 return false;
@@ -41,21 +41,29 @@ public:
 
     void updateHover(CCPoint point) {
         CCPoint local;
-        CCNode* parent = nullptr;
-        bool isVisible = false;
+        CCMenu* currentParent  = nullptr;
+        LimitedCCMenu* currentLimitedCCMenu = nullptr;
+        bool currentParentVisible  = false;
         for (HoverableCCMenuItemSpriteExtra* item : m_hoverableItems) {
             if (ObjectSelectPopup* popup = item->getCurrentPopup()) {
-                if (popup->isDraggingScroll()) break;
+                if (popup->isDraggingScroll()) return;
             }
-            if (parent != item->getParent()) {
-                parent = item->getParent();
-                if (parent) {
-                    isVisible = parent->isVisible();
+            CCMenu* parent = static_cast<CCMenu*>(item->getParent());
+            if (parent != currentParent) {
+                currentParent = parent;
+                currentParentVisible = parent && parent->isVisible();
+                if (currentParentVisible) {
                     local = parent->convertToNodeSpace(point);
                 }
+                currentLimitedCCMenu = typeinfo_cast<LimitedCCMenu*>(currentParent);
             }
-            if (isVisible && isNodeVisible(item)) {
-                item->hover(item, point, item->boundingBox().containsPoint(local));
+            if (currentParentVisible && isNodeVisible(item)) {
+                if (currentLimitedCCMenu) {
+                    item->hover(item, point, item->boundingBox().containsPoint(local) && currentLimitedCCMenu->testLocation(point));
+                }
+                else {
+                    item->hover(item, point, item->boundingBox().containsPoint(local));
+                }
             }
         }
     }

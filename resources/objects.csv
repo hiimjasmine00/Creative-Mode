@@ -36,8 +36,8 @@
 47,Ball Portal
 48,Large Fading Cloud
 49,Small Fading Cloud
-50,Pulsing Ball
-51,Pulsing Hollow Ball
+50,Pulsing Filled Circle
+51,Pulsing Circle
 52,Pulsing Heart
 53,Pulsing Diamond
 54,Pulsing Star
@@ -106,7 +106,7 @@
 129,Medium Cloud
 130,Large Cloud
 131,Small Cloud
-132,Pulsing Arrow
+132,Pulsing Arrow 1
 133,Pulsing Exclamation Point
 134,Small Diamond Rod
 135,Thorn Black Pit Hazard
@@ -120,7 +120,7 @@
 144,Invisible Spike
 145,Small Invisible Spike
 146,Invisible Square
-147,Invisible Plank
+147,Invisible Slab
 148,Pulsing Square
 149,Pulsing Triangle
 150,Pulsing Cross
@@ -133,11 +133,11 @@
 157,Wavy Decoration
 158,Wavy Decoration Left Edge
 159,Wavy Decoration Right Edge
-170,Electric Layered Plank
-171,Electric Layered Plank Edge 1
-172,Electric Layered Plank Edge 2
+170,Electric Layered Slab
+171,Electric Layered Slab Edge 1
+172,Electric Layered Slab Edge 2
 173,Electric Layered Corner Square
-174,Electric Layered Plank Edge 3
+174,Electric Layered Slab Edge 3
 175,Electric Layered Square
 176,Electric Layered Tiny Square
 177,Ice Spike
@@ -149,18 +149,18 @@
 183,Large Blade
 184,Medium Blade
 185,Small Blade
-186,Large Outline Sawblade
-187,Medium Outline Sawblade
-188,Small Outline Sawblade
+186,Large Outline Blade
+187,Medium Outline Blade
+188,Small Outline Blade
 190,Tall Diamond Rod
-192,Electric Layered Plank Singular
+192,Electric Layered Slab Singular
 194,Electric Layered Inner Square 
-197,Electric Layered Plank Edge 4
+197,Electric Layered Slab Edge 4
 200,Slow Speed Boost
 201,Normal Speed Boost
 202,Double Speed Boost
 203,Triple Speed Boost
-204,Invisible Small Plank
+204,Invisible Small Slab
 205,Invisible Half Spike
 206,Invisible Small Square
 207,Colored Square
@@ -170,11 +170,11 @@
 211,Colored Inner Square
 212,Colored Top Pillar Square
 213,Colored Pillar Square
-215,Colored Plank
+215,Colored Slab
 216,Colored Spike
 217,Colored Half Spike
 218,Colored Small Spike
-219,Colored Small Plank
+219,Colored Small Slab
 220,Colored Small Square
 222,Large Round Cloud
 223,Medium Round Cloud
@@ -188,7 +188,7 @@
 231,Small Bar
 232,Small Outer Corner Bar
 233,Decorative Light Bricks
-234,Decorative Light Bricks Plank
+234,Decorative Light Bricks Slab
 235,Decorative Light Brick Edge
 236,Large Pulsing Circle
 237,Duo-Link
@@ -236,52 +236,52 @@
 297,Wavy Black Wide Slope Corner
 305,Mechanical Slope
 307,Mechanical Wide Slope
-324,
-325,
-326,
-327,
-328,
-329,
-349,
-351,
-358,
+324,Striped Ledge Connector
+325,Long Striped Ledge Conector
+326,Electroman Slope
+327,Electroman Long Slope
+328,Electroman Slope Connector
+329,Electroman Long Slope Connector
+349,Mechanical Colored Slope
+351,Mechanical Colored Long Slope
+358,Extra Slope Connector
 371,Black Gradient Slope
 372,Black Gradient Wide Slope
 373,Black Gradient Slope Corner
 374,Black Gradient Wide Slope Corner
-375,
-376,
-377,
-378,
+375,Large Arm
+376,Medium Arm
+377,Small Arm
+378,Very Small Arm
 392,Black Gradient Tiny Spike
-394,
-395,
-396,
-405,
-406,
-407,
-408,
-409,
-410,
-411,
-412,
-413,
-414,
-419,
-420,
-448,
-449,
-450,
-451,
-452,
-453,
-454,
-455,
-456,
-457,
-458,
-459,
-460,
+394,Large Rotating Hexagon
+395,Medium Rotating Hexagon
+396,Small Rotating Hexagon
+405,Pulsing Hexagon
+458,Colored Tiny Spike
+459,Invisible Tiny Spike
+460,Pulsing Arrow 2
+406,Patch of Grass
+407,Patch of Grass 2
+408,Patch of Grass 3
+409,Mechanical Connector
+410,Mechanical Connector 2
+411,Mechanical Connector 3
+412,Mechanical Connector 4
+413,Mechanical Connector 5
+414,Patch of Grass 4
+419,Water
+420,Water 2
+448,Rough Damage Block
+449,Rough Damage Block 2
+450,Big Equilizer 
+451,Small Equilizer 
+452,Tiny Equilizer 
+453,Black Mechanical Connector
+454,Black Mechanical Connector 2
+455,Black Mechanical Connector 3
+456,Black Mechanical Connector 4
+457,Black Mechanical Connector 5
 467,Outline Square
 468,Outline Top
 469,Outline Outer Corner
@@ -291,26 +291,26 @@
 473,Outline Slope Corner
 474,Outline Wide Slope Corner
 475,Outline Slope Side
-476,
-477,
-478,
-479,
-480,
-481,
-482,
-485,
-486,
-487,
-488,
-489,
-490,
-491,
-494,
-495,
-496,
-497,
-498,
-499,
+476,Colored Connected Inner Square
+477,Colored Connected Square Singular
+478,Colored Connected Top Pillar Square
+479,Colored Connected Corner 1 Square
+480,Colored Connected Top Square
+481,Colored Connected Corner 2 Square
+482,Colored Connected Corner 3 Square
+485,Colored Round Connected Inner 1 Square
+486,Colored Round Connected Square Singular
+487,Colored Round Connected Corner 1 Square
+488,Colored Round Connected Top Square
+489,Colored Round Connected Diagonal Square
+490,Colored Round Connected Corner 2 Square
+491,Colored Round Connected Inner 2 Square
+494,Pulsing Arrow 3
+495,Large Pulsing Filled Square
+496,Large Pulsing Square
+497,Large Pulsing Filled Circle
+498,Chain Link
+499,Chain Bottom
 500,
 501,
 502,Checkered Slope Corner
@@ -479,8 +479,8 @@
 670,
 671,
 672,
-673,
-674,
+673,Invisible Slope
+674,Invisible Wide Slope
 678,Large Colored Blade
 679,Medium Colored Blade
 680,Small Colored Blade
@@ -642,12 +642,12 @@
 917,
 918,Big Beast Hazard
 919,Animated Black Pit Hazard
-920,
-921,
-923,
-924,
-925,
-926,
+920,Large Fire Animation
+921,Thin Fire Burst Animation
+923,Thin Fire 1 Animation
+924,Thin Fire 2 Animation
+925,Small Half Rainbow
+926,Large Half Rainbow
 927,
 928,
 929,
@@ -657,10 +657,10 @@
 933,
 934,
 935,
-936,
-937,
-938,
-939,
+936,Medium Cartoon Cloud
+937,Large Cartoon Cloud
+938,Small Cartoon Cloud
+939,Flower
 940,
 941,
 942,
@@ -708,10 +708,10 @@
 988,
 990,
 992,
-997,
-998,
-999,
-1000,
+997,Large Split Circle
+998,Medium Split Circle
+999,Small Split Circle
+1000,Very Small Split Circle
 1001,
 1002,
 1003,
@@ -729,9 +729,9 @@
 1016,
 1017,
 1018,
-1019,
-1020,
-1021,
+1019,Large Shine
+1020,Medium Shine
+1021,Small Shine
 1022,Green Gravity Orb
 1024,
 1025,
@@ -759,18 +759,18 @@
 1047,
 1048,
 1049,Toggle Trigger
-1050,
-1051,
-1052,
-1053,
-1054,
-1055,
-1056,
-1057,
-1058,
-1059,
-1060,
-1061,
+1050,Transparent Circle Wave Animation
+1051,Transparent Sharp Wave Animation
+1052,Transparent Inverse Circle Wave Animation
+1053,Colored Stripes Small Square Animation
+1054,Colored Stripes Slab Animation
+1055,Rotating Circles 1
+1056,Rotating Circles 2
+1057,Rotating Circles 3
+1058,Large Swirl
+1059,Medium Swirl
+1060,Small Swirl
+1061,Very Small Swirl
 1062,
 1063,
 1064,
@@ -840,25 +840,25 @@
 1137,
 1138,
 1139,
-1140,
-1141,
-1142,
-1143,
-1144,
-1145,
-1146,
-1147,
-1148,
-1149,
-1150,
-1151,
-1152,
-1153,
-1154,
-1155,
-1156,
-1157,
-1158,
+1140,Stripe Outer Corner Square
+1141,Stripe Inner Corner Square
+1142,Stripe Top Square
+1143,Stripe Top Pillar Square
+1144,Stripe Pillar Square
+1145,Stripe Pillar/Top Square
+1146,Stripe Square Singular
+1147,Stripe Checkered 1 Square
+1148,Stripe Inner Square
+1149,Stripe Pillar/Outer Corner Square
+1150,Stripe Pillar Corner 1 Square
+1151,Stripe Pillar Corner 2 Square
+1152,Stripe Pillar Corner 3 Square
+1153,Stripe Checkered 2 Square
+1154,Small Outline Top
+1155,Small Outline Outer Corner
+1156,Small Outline Top Pillar
+1157,Small Outline Pillar
+1158,Small Outline Inner Corner
 1159,
 1160,
 1161,
@@ -902,24 +902,24 @@
 1199,
 1200,
 1201,
-1202,
-1203,
-1204,
-1205,
-1206,
-1207,
-1208,
-1209,
-1210,
-1220,
-1221,
-1222,
-1223,
-1224,
-1225,
-1226,
-1227,
-1228,
+1202,Thick Outline Top
+1203,Thick Outline Outer Corner
+1204,Thick Outline Top Pillar
+1205,Thick Outline Inner Corner
+1206,Thick Outline Slope Corner
+1207,Thick Outline Wide Slope Corner
+1208,Thick Outline Small Square
+1209,Thick Outline Pillar
+1210,Thick Outline Square
+1220,Thicker Outline Top
+1221,Thicker Outline Outer Corner
+1222,Thicker Outline Top Pillar
+1223,Thicker Outline Inner Corner
+1224,Thicker Outline Slope Corner
+1225,Thicker Outline Wide Slope Corner
+1226,Thicker Outline Pillar
+1227,Thicker Outline Square
+1228,Transparent Wave Inner Square
 1229,
 1230,
 1231,
@@ -951,12 +951,12 @@
 1257,
 1258,
 1259,
-1260,
-1261,
-1262,
-1263,
-1264,
-1265,
+1260,Outline Off Grid Top
+1261,Outline Off Grid Inner Corner
+1262,Thick Outline Off Grid Top
+1263,Thick Outline Off Grid Inner Corner
+1264,Thicker Outline Off Grid Top
+1265,Thicker Outline Off Grid Inner Corner
 1266,
 1267,
 1268,Spawn Trigger
@@ -1131,14 +1131,14 @@
 1518,
 1519,
 1520,Shake Trigger
-1521,
-1522,
-1523,
-1524,
-1525,
-1526,
-1527,
-1528,
+1521,Large Jointless Arm
+1522,Medium Jointless Arm
+1523,Small Jointless Arm
+1524,Very Small Jointless Arm
+1525,Large Rotating Particle
+1526,Medium Rotating Particle
+1527,Small Rotating Particle
+1528,Very Small Rotating Particle
 1529,
 1530,
 1531,
@@ -1164,13 +1164,13 @@
 1583,Moving Fireball
 1584,Bat Hazard
 1585,Animate Trigger
-1586,
+1586,Square Particles
 1587,Heart Collectable
 1588,Heart Hole
 1589,Potion Collectable
 1590,Potion Hole
 1591,
-1592,
+1592,Colored Stripes Small Slab Animation
 1593,
 1594,Toggle Orb
 1595,Touch Trigger
@@ -1178,12 +1178,12 @@
 1597,
 1598,Skull Collectable
 1599,Skull Hole
-1600,
-1601,
-1602,
-1603,
-1604,
-1605,
+1600,Wood Sign
+1601,Wood Post
+1602,Cartoon Skull
+1603,Cartoon Arrow
+1604,Cartoon Smile
+1605,Cartoon Frown
 1606,
 1607,
 1608,
@@ -1278,7 +1278,7 @@
 1697,
 1698,
 1699,
-1700,
+1700,Circle Particles
 1701,Spiked Square Hazard
 1702,Spiked Circle Hazard
 1703,Triangle Hazard
@@ -1330,7 +1330,7 @@
 1749,Brick Slope
 1750,Brick Wide Slope
 1751,Gravity Dash Orb
-1752,
+1752,Triangle Swirl
 1753,
 1754,
 1755,Allow Wave Slide Modifier
@@ -1408,24 +1408,24 @@
 1828,
 1829,Stop Dash Modifier
 1830,
-1831,
-1832,
-1833,
-1834,
-1835,
-1836,
-1837,
-1838,
-1839,
-1840,
-1841,
-1842,
-1843,
-1844,
-1845,
-1846,
-1847,
-1848,
+1831,Large Rotating Quarter Circle
+1832,Small Rotating Quarter Circle
+1833,Large Rotating Filled Quarter Circle
+1834,Small Rotating Filled Quarter Circle
+1835,Large Quarter Circle
+1836,Small Quarter Circle
+1837,Large Filled Quarter Circle
+1838,Small Filled Quarter Circle
+1839,Large Expanding Circle Animation
+1840,Small Expanding Circle Animation
+1841,Large Expanding Filled Circle Animation
+1842,Small Expanding Filled Circle Animation
+1843,Wood Plank
+1844,Cartoon Hand Point
+1845,Cartoon Hand Fist 1
+1846,Cartoon Hand Thumbs Up
+1847,Cartoon Hand Open
+1848,Cartoon Hand Fist 2
 1849,
 1850,
 1851,
@@ -3060,8 +3060,8 @@
 3618,Reset Trigger
 3619,Item Edit Trigger
 3620,Item Compare Trigger
-3621,Ball
-3622,Hollow Ball
+3621,Filled Circle
+3622,Circle
 3623,Heart
 3624,Diamond
 3625,Star
@@ -3069,16 +3069,16 @@
 3627,Square
 3628,Triangle
 3629,Hexagon
-3630,Arrow
+3630,Arrow 1
 3631,Arrow 2
 3632,Arrow 3
 3633,Exclamation Point
 3634,Question Mark
 3635,Cross
-3636,Large Hollow Ball
-3637,Large Ball
-3638,Large Square
-3639,Large Hollow Square
+3636,Large Circle
+3637,Large Filled Circle
+3638,Large Filled Square
+3639,Large Square
 3640,Collision State Block
 3641,Item Persist Trigger
 3642,BPM Trigger
@@ -3829,6 +3829,7 @@
 4442,Gear Pixel Collectable
 4443,Plus Pixel Collectable
 4444,Plus Symbols Pixel Collectable
+4445,Pebbles Pixel Collectable
 4446,Present Pixel Collectable
 4447,Chest Pixel Collectable
 4448,Bag Pixel Collectable
@@ -3845,16 +3846,22 @@
 4459,Hat Pixel Collectable
 4460,Pointy Hat Pixel Collectable
 4461,Curly Hat Pixel Collectable
-4462,Armor 1 Pixel Collectable
-4463,Armor 2 Pixel Collectable
-4464,Armor 3 Pixel Collectable
-4465,Armor 4 Pixel Collectable
-4466,Armor 5 Pixel Collectable
-4467,Armor 6 Pixel Collectable
+4462,Helmet 1 Pixel Collectable
+4463,Helmet 2 Pixel Collectable
+4464,Helmet 3 Pixel Collectable
+4465,Mask 1 Pixel Collectable
+4466,Mask 2 Pixel Collectable
+4467,Mask 3 Pixel Collectable
 4468,Round Mask Pixel Collectable
 4469,Horned Round Mask Pixel Collectable
 4470,Small Lab Coat Pixel Collectable
 4471,Large Lab Coat Pixel Collectable
+4472,Armor 1 Pixel Collectable
+4473,Armor 2 Pixel Collectable
+4474,Armor 3 Pixel Collectable
+4475,Armor 4 Pixel Collectable
+4476,Armor 5 Pixel Collectable
+4477,Armor 6 Pixel Collectable
 4478,Shield 1 Pixel Collectable
 4479,Shield 2 Pixel Collectable
 4480,Shield 3 Pixel Collectable
@@ -3868,11 +3875,12 @@
 4488,Bow Pixel Collectable
 4489,Axe Pixel Collectable
 4490,Spear Pixel Collectable
-4491,Staff Pixel Collectable
+4491,Large Staff Pixel Collectable
 4492,Shovel Pixel Collectable
 4493,Pickaxe Pixel Collectable
 4494,Hammer Pixel Collectable
 4495,Hoe Pixel Collectable
+4496,Small Staff Pixel Collectable
 4497,Hook Pixel Collectable
 4498,Exclamation Point Pixel Collectable
 4499,Question Mark Pixel Collectable

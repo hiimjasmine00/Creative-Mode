@@ -23,7 +23,8 @@ class ObjectNames {
                 if (split.size() == 2) {
                     auto resID = utils::numFromString<int>(split[0]);
                     if (resID.isOk()) {
-                        m_names[resID.unwrap()] = split[1];
+                        if (!split[1].empty()) m_names[resID.unwrap()] = split[1];
+                        else m_names[resID.unwrap()] = "Unknown";
                     }
                 }
             }

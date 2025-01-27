@@ -18,6 +18,7 @@ class $modify(MyEditorUI, EditorUI) {
 	struct Fields {
 		std::unordered_map<int, Ref<GameObject>> m_gameObjects;
 		std::unordered_map<int, std::vector<Ref<HoverableCCMenuItemSpriteExtra>>> m_tabObjects;
+		std::vector<Ref<HoverableCCMenuItemSpriteExtra>> m_allButtons;
 		CCMenu* m_creativeMenu;
 		ObjectSelectPopup* m_objectSelectPopup = nullptr;
 	};
@@ -63,6 +64,10 @@ class $modify(MyEditorUI, EditorUI) {
 				}
 			}
 		}
+		std::map<int, GameObject*> ordered(fields->m_gameObjects.begin(), fields->m_gameObjects.end());
+        for (auto& [k, v] : ordered) {
+			fields->m_allButtons.push_back(createObjectButton(k, fields));
+        }
 
 		return true;
 	}
@@ -99,6 +104,11 @@ class $modify(MyEditorUI, EditorUI) {
 				CCNode* overlay2 = btn->getChildByID("slot-overlay");
 				overlay2->setVisible(false);
 			}
+		}
+
+		for (auto& btn : fields->m_allButtons) {
+			CCNode* overlay2 = btn->getChildByID("slot-overlay");
+			overlay2->setVisible(btn->getTag() == id);
 		}
 
 		overlay->setVisible(true);
