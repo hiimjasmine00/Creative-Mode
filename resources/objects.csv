@@ -67,7 +67,7 @@
 80,Mechanical Inner Square
 81,Mechanical Top Pillar Square
 82,Mechanical Pillar Square
-83,Tiled Square
+83,Checkered Square
 84,Blue Gravity Orb
 85,Large Cogwheel
 86,Medium Cogwheel
@@ -165,8 +165,8 @@
 206,Invisible Small Square
 207,Colored Square
 208,Colored Top Square
-209,Colored Inner Corner Square
-210,Colored Outer Corner Square
+209,Colored Outer Corner Square
+210,Colored Inner Corner Square
 211,Colored Inner Square
 212,Colored Top Pillar Square
 213,Colored Pillar Square

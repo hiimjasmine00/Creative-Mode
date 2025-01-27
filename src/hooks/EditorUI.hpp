@@ -4,10 +4,12 @@
 #include <Geode/modify/EditorUI.hpp>
 #include "EditButtonBar.hpp"
 #include "../popups/ObjectSelectPopup.hpp"
+#include "../HoverableCCMenuItemSpriteExtra.hpp"
+#include "../ObjectNames.hpp"
 
 using namespace geode::prelude;
 
-class $modify(MyEditorUI, EditorUI){
+class $modify(MyEditorUI, EditorUI) {
 
 	static void onModify(auto& self) {
         (void) self.setHookPriorityAfterPost("EditorUI::init", "hjfod.betteredit");\
@@ -15,13 +17,15 @@ class $modify(MyEditorUI, EditorUI){
 
 	struct Fields {
 		std::unordered_map<int, Ref<GameObject>> m_gameObjects;
-		std::unordered_map<int, std::vector<Ref<CCMenuItemSpriteExtra>>> m_tabObjects;
+		std::unordered_map<int, std::vector<Ref<HoverableCCMenuItemSpriteExtra>>> m_tabObjects;
 		CCMenu* m_creativeMenu;
+		ObjectSelectPopup* m_objectSelectPopup = nullptr;
 	};
 
     bool init(LevelEditorLayer* editorLayer) {
 		if (!EditorUI::init(editorLayer)) return false;
 		auto fields = m_fields.self();
+		ObjectNames::get();
 
 		CCSprite* creativeSpr = CCSprite::createWithSpriteFrameName("GJ_plus2Btn_001.png");
 		CCMenuItemSpriteExtra* creativeBtn = CCMenuItemSpriteExtra::create(creativeSpr, this, menu_selector(MyEditorUI::onCreativeMenu));
@@ -74,27 +78,48 @@ class $modify(MyEditorUI, EditorUI){
 	}
 
 	void onCreativeMenu(CCObject* sender) {
-		ObjectSelectPopup::create(this)->show();
+		auto fields = m_fields.self();
+
+		fields->m_objectSelectPopup = ObjectSelectPopup::create(this);
+		fields->m_objectSelectPopup->show();
 	}
 
 	void onObjectButton(CCObject* sender) {
 		auto fields = m_fields.self();
 		int id = sender->getTag();
 
-		CCMenuItemSpriteExtra* btn = static_cast<CCMenuItemSpriteExtra*>(sender);
+		HoverableCCMenuItemSpriteExtra* btn = static_cast<HoverableCCMenuItemSpriteExtra*>(sender);
 		CCNode* overlay = btn->getChildByID("slot-overlay");
 
 		m_selectedObjectIndex = id;
 		updateCreateMenu(false);
 
 		for (auto& [k, v] : fields->m_tabObjects) {
-			for (CCMenuItemSpriteExtra* btn : v) {
+			for (HoverableCCMenuItemSpriteExtra* btn : v) {
 				CCNode* overlay2 = btn->getChildByID("slot-overlay");
 				overlay2->setVisible(false);
 			}
 		}
 
 		overlay->setVisible(true);
+	}
+
+	void onObjectButtonHover(CCObject* sender, CCPoint point, bool hovering, bool isStart) {
+		HoverableCCMenuItemSpriteExtra* btn = static_cast<HoverableCCMenuItemSpriteExtra*>(sender);
+
+		if (isStart && hovering) {
+			btn->getCurrentPopup()->setTooltipVisible(true);
+			btn->getCurrentPopup()->setTooltipText(fmt::format("{}", ObjectNames::get()->nameForID(btn->getTag())), btn->getTag());
+			btn->getChildByID("highlight")->setVisible(true);
+		}
+		if (isStart && !hovering) {
+			btn->getCurrentPopup()->setTooltipVisible(false);
+			btn->getChildByID("highlight")->setVisible(false);
+		}
+
+		if (hovering) {
+			btn->getCurrentPopup()->setTooltipPosition(point);
+		}
 	}
 
 	GameObject* createGameObject(int id, MyEditorUI::Fields* fields) {
@@ -111,7 +136,7 @@ class $modify(MyEditorUI, EditorUI){
 		return nullptr;
 	}
 
-	CCMenuItemSpriteExtra* createObjectButton(int id, MyEditorUI::Fields* fields) {
+	HoverableCCMenuItemSpriteExtra* createObjectButton(int id, MyEditorUI::Fields* fields) {
 		CCNode* objectContainer = CCNode::create();
 		CCSprite* slotSprite = CCSprite::create("slot.png"_spr);
 		CCSprite* slotOverlay = CCSprite::create("slot-overlay.png"_spr);
@@ -120,17 +145,26 @@ class $modify(MyEditorUI, EditorUI){
 		slotOverlay->setVisible(false);
 		slotOverlay->setID("slot-overlay");
 		slotOverlay->setColor({255, 255, 0});
+
+		CCLayerColor* highlight = CCLayerColor::create({255, 255, 255, 127});
+		highlight->setVisible(false);
+		highlight->setID("highlight");
+		highlight->setZOrder(-11);
+
 		objectContainer->setAnchorPoint({1, 0.5});
 		objectContainer->setScale(ObjectSelectPopup::s_scaleMult * 0.7);
 		objectContainer->addChild(createGameObject(id, fields));
 
 		objectContainer->setContentSize({40, 40});
-
-		CCMenuItemSpriteExtra* btn = CCMenuItemSpriteExtra::create(objectContainer, this, menu_selector(MyEditorUI::onObjectButton));
+		using namespace std::placeholders;
+		HoverableCCMenuItemSpriteExtra* btn = HoverableCCMenuItemSpriteExtra::create(objectContainer, this, menu_selector(MyEditorUI::onObjectButton), std::bind(&MyEditorUI::onObjectButtonHover, this, _1, _2, _3, _4));
 		objectContainer->setPosition({objectContainer->getPositionX() + 2.75f * objectContainer->getScale(), objectContainer->getPositionY() + 1 * objectContainer->getScale()});
 		btn->addChild(slotSprite);
 		btn->addChild(slotOverlay);
+		btn->addChild(highlight);
 		btn->setContentSize({25.6, 25.6});
+		highlight->setContentSize(btn->getContentSize());
+
 		btn->setTag(id);
 		slotSprite->setPosition(btn->getContentSize()/2);
 		slotSprite->setScale(btn->getContentSize().width / slotSprite->getContentSize().width);

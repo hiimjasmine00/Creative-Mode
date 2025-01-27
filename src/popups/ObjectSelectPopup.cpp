@@ -29,6 +29,33 @@ bool ObjectSelectPopup::init(EditorUI* editorUI){
         { -2.f, -30.f }
     );
 
+    m_tooltip = CCNode::create();
+    m_tooltip->setID("tooltip");
+    m_tooltipBG = CCScale9Sprite::create("square02_001.png");
+    m_tooltipBG->setOpacity(225);
+    m_tooltipBG->setAnchorPoint({0, 0});
+    m_tooltipBG->setZOrder(-11);
+    m_tooltipBG->setID("background");
+    m_tooltip->setVisible(false);
+    m_tooltip->setAnchorPoint({0, 0});
+    m_tooltipText = CCLabelBMFont::create("", "chatFont.fnt");
+    m_tooltipText->setAnchorPoint({0.f, 1.f});
+    m_tooltipText->setID("tooltip-label");
+    m_tooltipText->setScale(0.75);
+    m_tooltipText->setPositionX(5);
+    m_tooltipObjID = CCLabelBMFont::create("", "chatFont.fnt");
+    m_tooltipObjID->setAnchorPoint({0.f, 0.f});
+    m_tooltipObjID->setID("object-id-label");
+    m_tooltipObjID->setColor({0, 255, 75});
+    m_tooltipObjID->setScale(0.5);
+    m_tooltipObjID->setPositionX(5);
+
+    m_tooltip->addChild(m_tooltipText);
+    m_tooltip->addChild(m_tooltipBG);
+    m_tooltip->addChild(m_tooltipObjID);
+
+    addChild(m_tooltip);
+
     CCMenuItemSpriteExtra* tab1Btn = createTabButton("square_01_001.png", menu_selector(ObjectSelectPopup::onTab), 0);
     tab1Btn->setOpacity(255);
     m_tabsMenu->addChild(tab1Btn);
@@ -64,6 +91,38 @@ bool ObjectSelectPopup::init(EditorUI* editorUI){
     return true;
 }
 
+void ObjectSelectPopup::setTooltipText(std::string text, int id) {
+    if (m_tooltipText) {
+        m_tooltipText->setString(text.c_str());
+        m_tooltipObjID->setString(fmt::format("(#{})", id).c_str());
+
+        float scaleFactor = 4.f;
+
+        m_tooltip->setContentSize({m_tooltipText->getScaledContentSize().width + 10, m_tooltipText->getScaledContentSize().height + m_tooltipObjID->getScaledContentSize().height + 5});
+        m_tooltipBG->setContentSize(m_tooltip->getContentSize() * scaleFactor);
+        m_tooltipBG->setScale(1 / scaleFactor);
+
+        m_tooltipText->setPositionY(m_tooltip->getContentSize().height - 2);
+        m_tooltipObjID->setPositionY(3);
+    }
+}
+
+void ObjectSelectPopup::setTooltipPosition(CCPoint point) {
+    if (m_tooltip) m_tooltip->setPosition(point);
+}
+
+void ObjectSelectPopup::setTooltipVisible(bool visible) {
+
+    if (!m_queueVisible && visible) {
+        m_queueVisible = true;
+        queueInMainThread([this] {
+            if (m_tooltip && !m_isDraggingScroll) m_tooltip->setVisible(true);
+            m_queueVisible = false;
+        });
+    }
+    
+    if (m_tooltip) m_tooltip->setVisible(visible);
+}
 
 CCMenuItemSpriteExtra* ObjectSelectPopup::createTabButton(std::string spriteName, cocos2d::SEL_MenuHandler callback, int tag, float scale) {
     CCSprite* spr = CCSprite::createWithSpriteFrameName(spriteName.c_str());
@@ -159,13 +218,15 @@ void ObjectSelectPopup::generateList(int tab){
     );
 
     auto fields = static_cast<MyEditorUI*>(m_editorUI)->m_fields.self();
-    std::vector<Ref<CCMenuItemSpriteExtra>> buttons = fields->m_tabObjects[tab];
+    std::vector<Ref<HoverableCCMenuItemSpriteExtra>> buttons = fields->m_tabObjects[tab];
+    std::vector<Ref<CCNode>> rows;
 
     int itemsPerRow = 11;
 
     int i = 0;
     while (true) {
         CCMenu* row = CCMenu::create();
+        rows.push_back(row);
         row->setContentSize({contentSize.width, 30 * ObjectSelectPopup::s_scaleMult});
         row->setLayout(
             RowLayout::create()
@@ -181,7 +242,9 @@ void ObjectSelectPopup::generateList(int tab){
                 shouldBreak = true;
                 break;
             }
-            row->addChild(buttons[pos]);
+            HoverableCCMenuItemSpriteExtra* btn = static_cast<HoverableCCMenuItemSpriteExtra*>(buttons[pos]);
+            btn->setPopup(this);
+            row->addChild(btn);
         }
         if (row->getChildrenCount() != 0) {
             row->updateLayout();
@@ -194,8 +257,12 @@ void ObjectSelectPopup::generateList(int tab){
     container->ignoreAnchorPointForPosition(true);
     container->updateLayout();
 
-    m_scrollLayer = ScrollLayerPro::create(contentSize);
+    m_scrollLayer = ScrollLayerPro::create(contentSize, [this] (bool dragging) {
+        m_isDraggingScroll = dragging;
+        if (dragging) setTooltipVisible(false);
+    });
     m_scrollLayer->addButtons(std::vector<Ref<CCMenuItem>>(buttons.begin(), buttons.end()));
+    m_scrollLayer->addRows(rows, 30 * ObjectSelectPopup::s_scaleMult, 8);
     m_scrollLayer->setID("object-list");
     m_scrollLayer->ignoreAnchorPointForPosition(false);
     m_scrollLayer->m_contentLayer->setLayout(
@@ -233,7 +300,7 @@ void ObjectSelectPopup::generateList(int tab){
     );
 
     for (auto& [k, v] : fields->m_tabObjects) {
-        for (CCMenuItemSpriteExtra* btn : v) {
+        for (HoverableCCMenuItemSpriteExtra* btn : v) {
             CCNode* slotOverlay = btn->getChildByID("slot-overlay");
             slotOverlay->setVisible(static_cast<MyEditorUI*>(m_editorUI)->m_selectedObjectIndex == btn->getTag());
         }
@@ -248,6 +315,10 @@ void ObjectSelectPopup::generateList(int tab){
             }
         }
     });
+}
+
+bool ObjectSelectPopup::isDraggingScroll() {
+    return m_isDraggingScroll;
 }
 
 bool ObjectSelectPopup::setup() {

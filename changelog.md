@@ -1,3 +1,7 @@
+# 1.0.3
+- Object Names (beta)
+  - Please contribute to the object names in #object-name-crowdsource here: https://discord.gg/Txn2CA5dHF
+
 # 1.0.2
 - Fix Touch Prio
 
