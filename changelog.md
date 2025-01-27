@@ -1,6 +1,7 @@
 # 1.0.3
 - Object Names (beta)
   - Please contribute to the object names in #object-name-crowdsource here: https://discord.gg/Txn2CA5dHF
+  - Hover is currently Windows only and alternatives are planned for other devices in the future.
 
 # 1.0.2
 - Fix Touch Prio
