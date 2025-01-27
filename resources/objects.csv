@@ -230,12 +230,12 @@
 285,Single Point Bar
 286,Dual Portal
 287,Exit Dual Portal
-294,
-295,
-296,
-297,
-305,
-307,
+294,Wavy Black Slope
+295,Wavy Black Wide Slope
+296,Wavy Black Slope Corner
+297,Wavy Black Wide Slope Corner
+305,Mechanical Slope
+307,Mechanical Wide Slope
 324,
 325,
 326,
@@ -245,15 +245,15 @@
 349,
 351,
 358,
-371,
-372,
-373,
-374,
+371,Black Gradient Slope
+372,Black Gradient Wide Slope
+373,Black Gradient Slope Corner
+374,Black Gradient Wide Slope Corner
 375,
 376,
 377,
 378,
-392,
+392,Black Gradient Tiny Spike
 394,
 395,
 396,
@@ -282,15 +282,15 @@
 458,
 459,
 460,
-467,
-468,
-469,
-470,
-471,
-472,
-473,
-474,
-475,
+467,Outline Square
+468,Outline Top
+469,Outline Outer Corner
+470,Outline Top Pillar
+471,Outline Pillar
+472,Outline Inner Corner
+473,Outline Slope Corner
+474,Outline Wide Slope Corner
+475,Outline Slope Side
 476,
 477,
 478,
@@ -313,7 +313,7 @@
 499,
 500,
 501,
-502,
+502,Checkered Slope Corner
 503,
 504,
 505,
@@ -469,11 +469,11 @@
 657,
 658,
 659,
-660,
-661,
-662,
-663,
-664,
+660,Wave Portal
+661,Outline Small Square
+662,Outline Slab Singular
+663,Outline Slab
+664,Outline Slab Edge
 668,
 669,
 670,
@@ -481,9 +481,9 @@
 672,
 673,
 674,
-678,
-679,
-680,
+678,Large Colored Blade
+679,Medium Colored Blade
+680,Small Colored Blade
 681,
 682,
 683,
@@ -530,11 +530,11 @@
 736,
 738,
 739,
-740,
-741,
-742,
-745,
-747,
+740,Large Invisible Blade
+741,Medium Invisible Blade
+742,Small Invisible Blade
+745,Robot Portal
+747,Linked Teleport Portals
 752,
 753,
 754,
@@ -625,8 +625,8 @@
 894,
 895,
 896,
-899,
-901,
+899,Color Trigger
+901,Move Trigger
 902,
 903,
 904,
@@ -637,11 +637,11 @@
 909,
 910,
 911,
-914,
+914,Text
 916,
 917,
-918,
-919,
+918,Big Beast Hazard
+919,Animated Black Pit Hazard
 920,
 921,
 923,
@@ -717,8 +717,8 @@
 1003,
 1004,
 1005,
-1006,
-1007,
+1006,Pulse Trigger
+1007,Alpha Trigger
 1009,
 1010,
 1011,
@@ -732,7 +732,7 @@
 1019,
 1020,
 1021,
-1022,
+1022,Green Gravity Orb
 1024,
 1025,
 1026,
@@ -758,7 +758,7 @@
 1046,
 1047,
 1048,
-1049,
+1049,Toggle Trigger
 1050,
 1051,
 1052,
@@ -959,15 +959,15 @@
 1265,
 1266,
 1267,
-1268,
+1268,Spawn Trigger
 1269,
 1270,
 1271,
 1272,
 1273,
 1274,
-1275,
-1276,
+1275,Key Collectable
+1276,Key Hole
 1277,
 1278,
 1279,
@@ -1015,24 +1015,24 @@
 1322,
 1325,
 1326,
-1327,
-1328,
-1329,
-1330,
-1331,
-1332,
-1333,
-1334,
-1338,
-1339,
-1340,
-1341,
-1342,
-1343,
-1344,
-1345,
-1346,
-1347,
+1327,Small Monster Hazard
+1328,Large Monster Hazard
+1329,User Coin
+1330,Black Drop Orb
+1331,Spider Portal
+1332,Red Jump Pad
+1333,Red Jump Orb
+1334,Quadruple Speed Boost
+1338,Outline Slope
+1339,Outline Wide Slope
+1340,Thin Invisible Outline
+1341,Thin Invisible Outline Slope
+1342,Thin Invisible Outline Wide Slope
+1343,Thick Invisible Outline
+1344,Thick Invisible Outline Slope
+1345,Thick Invisible Outline Wide Slope
+1346,Rotate Trigger
+1347,Follow Trigger
 1348,
 1349,
 1350,
@@ -1130,7 +1130,7 @@
 1517,
 1518,
 1519,
-1520,
+1520,Shake Trigger
 1521,
 1522,
 1523,
@@ -1160,24 +1160,24 @@
 1558,
 1559,
 1560,
-1582,
-1583,
-1584,
-1585,
+1582,Rotating Fireball
+1583,Moving Fireball
+1584,Bat Hazard
+1585,Animate Trigger
 1586,
-1587,
-1588,
-1589,
-1590,
+1587,Heart Collectable
+1588,Heart Hole
+1589,Potion Collectable
+1590,Potion Hole
 1591,
 1592,
 1593,
-1594,
-1595,
+1594,Toggle Orb
+1595,Touch Trigger
 1596,
 1597,
-1598,
-1599,
+1598,Skull Collectable
+1599,Skull Hole
 1600,
 1601,
 1602,
@@ -1189,16 +1189,16 @@
 1608,
 1609,
 1610,
-1611,
-1612,
-1613,
-1614,
-1615,
-1616,
+1611,Count Trigger
+1612,Hide Player Trigger
+1613,Show Player Trigger
+1614,Coin Collectable
+1615,Counter Label
+1616,Stop Trigger
 1617,
 1618,
-1619,
-1620,
+1619,Large Scythe Blade
+1620,Small Scythe Blade
 1621,
 1622,
 1623,
@@ -1279,61 +1279,61 @@
 1698,
 1699,
 1700,
-1701,
-1702,
-1703,
-1704,
-1705,
-1706,
-1707,
-1708,
-1709,
-1710,
-1711,
-1712,
-1713,
-1714,
-1715,
-1716,
-1717,
-1718,
-1719,
-1720,
-1721,
-1722,
-1723,
-1724,
-1725,
-1726,
-1727,
-1728,
-1729,
-1730,
-1731,
-1732,
-1733,
-1734,
-1735,
-1736,
+1701,Spiked Square Hazard
+1702,Spiked Circle Hazard
+1703,Triangle Hazard
+1704,Dash Orb
+1705,Large Saw Blade
+1706,Medium Saw Blade
+1707,Small Saw Blade
+1708,Large Spike Blade
+1709,Medium Spike Blade
+1710,Small Spike Blade
+1711,Thorn Colored Pit Hazard 1
+1712,Thorn Colored Pit Hazard 2
+1713,Thorn Colored Pit Hazard 3
+1714,Thorn Colored Pit Hazard 4
+1715,Spike Black Pit Hazard
+1716,Spike Black Hazard
+1717,Spike Black Slope Hazard
+1718,Spike Black Wide Slope Hazard
+1719,Wavy Black Pit Hazard
+1720,Wavy Black Pit Right Edge Hazard
+1721,Wavy Black Pit Left Edge Hazard
+1722,Wavy Black Hazard
+1723,Wavy Black Slope Hazard
+1724,Wavy Black Wide Slope Hazard
+1725,Wide Spike Black Hazard
+1726,Wide Spike Black Edge Hazard
+1727,Wide Spike Black Half Hazard
+1728,Round Black Hazard
+1729,Round Black Edge Hazard
+1730,Square Black Hazard
+1731,Square Black Edge Hazard
+1732,Square Black Slope Hazard
+1733,Square Black Slope Corner Hazard
+1734,Large Gear Blade
+1735,Medium Gear Blade
+1736,Small Gear Blade
 1737,
 1738,
 1739,
 1740,
 1741,
 1742,
-1743,
-1744,
-1745,
-1746,
-1747,
-1748,
-1749,
-1750,
-1751,
+1743,Checkered Slope
+1744,Checkered Wide Slope
+1745,Cross Black Slope
+1746,Cross Black Wide Slope
+1747,Black Slope
+1748,Black Wide Slope
+1749,Brick Slope
+1750,Brick Wide Slope
+1751,Gravity Dash Orb
 1752,
 1753,
 1754,
-1755,
+1755,Allow Wave Slide Modifier
 1756,
 1757,
 1758,
@@ -1389,15 +1389,15 @@
 1808,
 1809,
 1810,
-1811,
-1812,
-1813,
-1814,
-1815,
-1816,
-1817,
-1818,
-1819,
+1811,Instant Count Trigger
+1812,On Death Trigger
+1813,Stop Jump Buffer Modifier
+1814,Follow Player Y Trigger
+1815,Collision Trigger
+1816,Collision Block
+1817,Pickup Trigger
+1818,Background Effect On Trigger
+1819,Background Effect Off Trigger
 1820,
 1821,
 1823,
@@ -1406,7 +1406,7 @@
 1826,
 1827,
 1828,
-1829,
+1829,Stop Dash Modifier
 1830,
 1831,
 1832,
@@ -1436,7 +1436,7 @@
 1856,
 1857,
 1858,
-1859,
+1859,Allow Head Collision Modifier
 1860,
 1861,
 1862,
@@ -1466,10 +1466,10 @@
 1886,
 1887,
 1888,
-1889,
-1890,
-1891,
-1892,
+1889,Fake Spike
+1890,Half Fake Spike
+1891,Small Fake Spike
+1892,Tiny Fake Spike
 1893,
 1894,
 1895,
@@ -1480,21 +1480,21 @@
 1900,
 1901,
 1902,
-1903,
-1904,
-1905,
-1906,
-1907,
-1908,
-1909,
-1910,
-1911,
-1912,
-1913,
-1914,
-1915,
-1916,
-1917,
+1903,Colored Gradient Slab Singular
+1904,Colored Gradient Slab
+1905,Colored Gradient Slab Edge
+1906,Colored Gradient Slope
+1907,Colored Gradient Wide Slope
+1908,Colored Gradient Slope Corner
+1909,Colored Gradient Wide Slope Corner
+1910,Colored Gradient Small Block
+1911,Colored Gradient Small Slab
+1912,Random Trigger
+1913,Zoom Camera Trigger
+1914,Static Camera Trigger
+1915,No Fade No Enter Effect
+1916,Offset Camera Trigger
+1917,Reverse Trigger
 1919,
 1920,
 1921,
@@ -1505,17 +1505,17 @@
 1926,
 1927,
 1928,
-1932,
-1933,
-1934,
-1935,
+1932,Player Control Trigger
+1933,Swing Portal
+1934,Song Trigger
+1935,TimeWarp Trigger
 1936,
 1937,
 1938,
 1939,
-2012,
-2015,
-2016,
+2012,Spikeball Hazard
+2015,Rotate Camera Trigger
+2016,Camera Guide
 2020,
 2021,
 2022,
@@ -1552,14 +1552,14 @@
 2053,
 2054,
 2055,
-2062,
-2063,
-2064,
-2065,
-2066,
-2067,
-2068,
-2069,
+2062,Edge Camera Trigger
+2063,Checkpoint
+2064,Unlinked Orange Teleport Portal
+2065,Custom Particles
+2066,Gravity Trigger
+2067,Scale Trigger
+2068,Advanced Random Trigger
+2069,Force Block
 2070,Pixel B 3 - 1
 2071,Pixel B 3 - 2
 2072,Pixel B 3 - 3
@@ -2317,7 +2317,7 @@
 2863,Brick Piece
 2864,Wide Flame Animation
 2865,Flame Animation
-2866,Flip Block
+2866,Gravity Flip Modifier
 2867,Explosion Animation
 2868,Small Explosion Animation
 2869,Tall Explosion Animation
@@ -2351,8 +2351,8 @@
 2897,Smart Template Wide Slope
 2899,Options Trigger
 2900,Arrow Trigger
-2901,Gameplay Offset Trigger
-2902,Separated Teleport Portal
+2901,Gameplay Offset Camera Trigger
+2902,Unlinked Blue Teleport Portal
 2903,Gradient Trigger
 2904,Shader Trigger
 2905,Shockwave Shader Trigger
@@ -2372,7 +2372,7 @@
 2922,Hue Shader Trigger
 2923,Edit Color Shader Trigger
 2924,Split Screen Shader Trigger
-2925,Camera Mode Trigger
+2925,Mode Camera Trigger
 2926,Flip Portal
 2927,Shiny Block Piece
 2928,Shiny Block Piece
@@ -3083,7 +3083,7 @@
 3641,Item Persist Trigger
 3642,BPM Trigger
 3643,Player Touch Block
-3645,Circle Force Block
+3645,Force Circle
 3646,Settings Particle
 3647,Download Particle
 3648,Music Particle
@@ -3785,142 +3785,134 @@
 4383,Pixel Art 1583
 4384,Pixel Art 1584
 4385,Pixel Art 1585
-4401,Pixel Item 1
-4402,Pixel Item 2
-4403,Pixel Item 3
-4404,Pixel Item 4
-4405,Pixel Item 5
-4406,Pixel Item 6
-4407,Pixel Item 7
-4408,Pixel Item 8
-4409,Pixel Item 9
-4410,Pixel Item 10
-4411,Pixel Item 11
-4412,Pixel Item 12
-4413,Pixel Item 13
-4414,Pixel Item 14
-4415,Pixel Item 15
-4416,Pixel Item 16
-4417,Pixel Item 17
-4418,Pixel Item 18
-4419,Pixel Item 19
-4420,Pixel Item 20
-4421,Pixel Item 21
-4422,Pixel Item 22
-4423,Pixel Item 23
-4424,Pixel Item 24
-4425,Pixel Item 25
-4426,Pixel Item 26
-4427,Pixel Item 27
-4428,Pixel Item 28
-4429,Pixel Item 29
-4430,Pixel Item 30
-4431,Pixel Item 31
-4432,Pixel Item 32
-4433,Pixel Item 33
-4434,Pixel Item 34
-4435,Pixel Item 35
-4436,Pixel Item 36
-4437,Pixel Item 37
-4438,Pixel Item 38
-4439,Pixel Item 39
-4440,Pixel Item 40
-4441,Pixel Item 41
-4442,Pixel Item 42
-4443,Pixel Item 43
-4444,Pixel Item 44
-4445,Pixel Item 45
-4446,Pixel Item 46
-4447,Pixel Item 47
-4448,Pixel Item 48
-4449,Pixel Item 49
-4450,Pixel Item 50
-4451,Pixel Item 51
-4452,Pixel Item 52
-4453,Pixel Item 53
-4454,Pixel Item 54
-4455,Pixel Item 55
-4456,Pixel Item 56
-4457,Pixel Item 57
-4458,Pixel Item 58
-4459,Pixel Item 59
-4460,Pixel Item 60
-4461,Pixel Item 61
-4462,Pixel Item 62
-4463,Pixel Item 63
-4464,Pixel Item 64
-4465,Pixel Item 65
-4466,Pixel Item 66
-4467,Pixel Item 67
-4468,Pixel Item 68
-4469,Pixel Item 69
-4470,Pixel Item 70
-4471,Pixel Item 71
-4472,Pixel Item 72
-4473,Pixel Item 73
-4474,Pixel Item 74
-4475,Pixel Item 75
-4476,Pixel Item 76
-4477,Pixel Item 77
-4478,Pixel Item 78
-4479,Pixel Item 79
-4480,Pixel Item 80
-4481,Pixel Item 81
-4482,Pixel Item 82
-4483,Pixel Item 83
-4484,Pixel Item 84
-4485,Pixel Item 85
-4486,Pixel Item 86
-4487,Pixel Item 87
-4488,Pixel Item 88
-4489,Pixel Item 89
-4490,Pixel Item 90
-4491,Pixel Item 91
-4492,Pixel Item 92
-4493,Pixel Item 93
-4494,Pixel Item 94
-4495,Pixel Item 95
-4496,Pixel Item 96
-4497,Pixel Item 97
-4498,Pixel Item 98
-4499,Pixel Item 99
-4500,Pixel Item 100
-4501,Pixel Item 101
-4502,Pixel Item 102
-4503,Pixel Item 103
-4504,Pixel Item 104
-4505,Pixel Item 105
-4506,Pixel Item 106
-4507,Pixel Item 107
-4508,Pixel Item 108
-4509,Pixel Item 109
-4510,Pixel Item 110
-4511,Pixel Item 111
-4512,Pixel Item 112
-4513,Pixel Item 113
-4514,Pixel Item 114
-4515,Pixel Item 115
-4516,Pixel Item 116
-4517,Pixel Item 117
-4518,Pixel Item 118
-4519,Pixel Item 119
-4520,Pixel Item 120
-4521,Pixel Item 121
-4522,Pixel Item 122
-4523,Pixel Item 123
-4524,Pixel Item 124
-4525,Pixel Item 125
-4526,Pixel Item 126
-4527,Pixel Item 127
-4528,Pixel Item 128
-4529,Pixel Item 129
-4530,Pixel Item 130
-4531,Pixel Item 131
-4532,Pixel Item 132
-4533,Pixel Item 133
-4534,Pixel Item 134
-4535,Pixel Item 135
-4536,Pixel Item 136
-4537,Pixel Item 137
-4538,Pixel Item 138
-4539,Pixel Item 139
+4401,Small Potion Pixel Collectable
+4402,Medium Potion Pixel Collectable
+4403,Large Potion Pixel Collectable
+4404,Diagonal Key Pixel Collectable
+4405,Round Key Pixel Collectable
+4406,Flat Key Pixel Collectable
+4407,Coin Pixel Collectable
+4408,Small Coin Stack Pixel Collectable
+4409,Large Coin Stack Pixel Collectable
+4410,Candy Pixel Collectable
+4411,Mushroom Pixel Collectable
+4412,Bone Pixel Collectable
+4413,Sphere Pixel Collectable
+4414,Ingot Pixel Collectable
+4415,Square Gem Pixel Collectable
+4416,Hexagon Gem Pixel Collectable
+4417,Octagon Gem Pixel Collectable
+4418,Rectangle Gem Pixel Collectable
+4419,Pointy Gem Pixel Collectable
+4420,Diamond Pixel Collectable
+4421,Fish Pixel Collectable
+4422,Rocks Pixel Collectable
+4423,Wood Pixel Collectable
+4424,Egg Pixel Collectable
+4425,Large Heart Pixel Collectable
+4426,Small Heart Pixel Collectable
+4427,Map Pixel Collectable
+4428,Book Pixel Collectable
+4429,Device Pixel Collectable
+4430,Computer Pixel Collectable
+4431,Large Skull Pixel Collectable
+4432,Small Skull Pixel Collectable
+4433,Speech Bubble Pixel Collectable
+4434,Branch Pixel Collectable
+4435,Shard Gem Pixel Collectable
+4436,Eye Pixel Collectable
+4437,Eyeball Pixel Collectable
+4438,Up Arrow Pixel Collectable
+4439,Down Arrow Pixel Collectable
+4440,Lightning Pixel Collectable
+4441,No Symbol Pixel Collectable
+4442,Gear Pixel Collectable
+4443,Plus Pixel Collectable
+4444,Plus Symbols Pixel Collectable
+4446,Present Pixel Collectable
+4447,Chest Pixel Collectable
+4448,Bag Pixel Collectable
+4449,Backpack Pixel Collectable
+4450,Bundle Pixel Collectable
+4451,Ring Pixel Collectable
+4452,Patterned Ring Pixel Collectable
+4453,Gem Ring Pixel Collectable
+4454,Large Necklace Pixel Collectable
+4455,Small Necklace Pixel Collectable
+4456,Shoe Pixel Collectable
+4457,Boot Pixel Collectable
+4458,Pointy Boot Pixel Collectable
+4459,Hat Pixel Collectable
+4460,Pointy Hat Pixel Collectable
+4461,Curly Hat Pixel Collectable
+4462,Armor 1 Pixel Collectable
+4463,Armor 2 Pixel Collectable
+4464,Armor 3 Pixel Collectable
+4465,Armor 4 Pixel Collectable
+4466,Armor 5 Pixel Collectable
+4467,Armor 6 Pixel Collectable
+4468,Round Mask Pixel Collectable
+4469,Horned Round Mask Pixel Collectable
+4470,Small Lab Coat Pixel Collectable
+4471,Large Lab Coat Pixel Collectable
+4478,Shield 1 Pixel Collectable
+4479,Shield 2 Pixel Collectable
+4480,Shield 3 Pixel Collectable
+4481,Shield 4 Pixel Collectable
+4482,Shield 5 Pixel Collectable
+4483,Shield 6 Pixel Collectable
+4484,Shield 7 Pixel Collectable
+4485,Shield 8 Pixel Collectable
+4486,Shield 9 Pixel Collectable
+4487,Sword Pixel Collectable
+4488,Bow Pixel Collectable
+4489,Axe Pixel Collectable
+4490,Spear Pixel Collectable
+4491,Staff Pixel Collectable
+4492,Shovel Pixel Collectable
+4493,Pickaxe Pixel Collectable
+4494,Hammer Pixel Collectable
+4495,Hoe Pixel Collectable
+4497,Hook Pixel Collectable
+4498,Exclamation Point Pixel Collectable
+4499,Question Mark Pixel Collectable
+4500,Plus Sign Pixel Collectable
+4501,Minus Sign Pixel Collectable
+4502,Equals Sign Pixel Collectable
+4503,Times Sign Pixel Collectable
+4504,Division Sign Pixel Collectable
+4505,0 Pixel Collectable
+4506,1 Pixel Collectable
+4507,2 Pixel Collectable
+4508,3 Pixel Collectable
+4509,4 Pixel Collectable
+4510,5 Pixel Collectable
+4511,6 Pixel Collectable
+4512,7 Pixel Collectable
+4513,8 Pixel Collectable
+4514,9 Pixel Collectable
+4515,Animal Skull Pixel Collectable
+4516,Cracked Skull Pixel Collectable
+4517,Small Bone Pixel Collectable
+4518,Large Key Pixel Collectable
+4519,Keyhole Chest Pixel Collectable
+4520,Bread Pixel Collectable
+4521,Small Diamond Pixel Collectable
+4522,Cloak Pixel Collectable
+4523,Scroll Pixel Collectable
+4524,Banner Pixel Collectable
+4525,Bomb Pixel Collectable
+4526,Metal Nugget Pixel Collectable
+4527,Small Arrow Pixel Collectable
+4528,Large Arrow Pixel Collectable
+4529,Cheese Pixel Collectable
+4530,Apple Pixel Collectable
+4531,Carrot Pixel Collectable
+4532,Steak Pixel Collectable
+4533,Fire Pixel Collectable
+4534,Wave Pixel Collectable
+4535,Spike Pixel Collectable
+4536,Cauldron Pixel Collectable
+4537,Fishing Rod Pixel Collectable
+4538,Pointy Bow Pixel Collectable
+4539,Floppy Disk Pixel Collectable
