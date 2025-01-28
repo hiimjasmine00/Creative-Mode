@@ -1,3 +1,7 @@
+# 1.0.6
+- Hopefully fix a rare crash
+- Fix some hover bugs
+
 # 1.0.5
 - Added Object Search
 - Added More Object Names

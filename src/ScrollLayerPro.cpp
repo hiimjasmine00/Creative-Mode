@@ -1,4 +1,5 @@
 #include "ScrollLayerPro.hpp"
+#include "HoverableCCMenuItemSpriteExtra.hpp"
 
 void ScrollLayerPro::addButtons(std::vector<CCMenuItem*> buttons) {
     m_buttons = buttons;
@@ -6,7 +7,8 @@ void ScrollLayerPro::addButtons(std::vector<CCMenuItem*> buttons) {
 
 void ScrollLayerPro::clearButtons() {
     for (CCMenuItem* btn : m_buttons) {
-        btn->removeFromParent();
+        static_cast<HoverableCCMenuItemSpriteExtra*>(btn)->setPopup(nullptr);
+        btn->removeFromParentAndCleanup(false);
     }
     m_buttons.clear();
 }
@@ -16,6 +18,13 @@ void ScrollLayerPro::clearRows() {
         row->removeFromParent();
     }
     m_rows.clear();
+}
+
+void ScrollLayerPro::cleanupScroll() {
+    clearButtons();
+    clearRows();
+    m_dragCallback = nullptr;
+    unschedule(schedule_selector(ScrollLayerPro::listenForPosChange));
 }
 
 void ScrollLayerPro::addRows(std::vector<CCNode*> nodes, float rowHeight, int visibleRowCount) {
@@ -38,17 +47,20 @@ void ScrollLayerPro::setButtonsEnabled(bool on){
 }
 
 void ScrollLayerPro::updateRowVisibility() {
-    float scrollPos = m_contentLayer->getPositionY();
+    //delay a frame so m_rows is cleared before this is ran again when cleaned up (rare but possible crash)
+    queueInMainThread([this] {
+        float scrollPos = m_contentLayer->getPositionY();
 
-    float rowsHeight = m_rowCount * m_rowHeight;
+        float rowsHeight = m_rowCount * m_rowHeight;
 
-    float rowMin = -(scrollPos) - m_rowHeight ;
-    float rowMax = -(scrollPos) + rowsHeight + m_rowHeight;
+        float rowMin = -(scrollPos) - m_rowHeight ;
+        float rowMax = -(scrollPos) + rowsHeight + m_rowHeight;
 
-    for (CCNode* row : m_rows) {
-        float rowY = row->getPosition().y;
-        row->setVisible(rowY > rowMin && rowY < rowMax);
-    }
+        for (CCNode* row : m_rows) {
+            float rowY = row->getPosition().y;
+            row->setVisible(rowY > rowMin && rowY < rowMax);
+        }
+    });
 }
 
 void ScrollLayerPro::listenForPosChange(float dt) {

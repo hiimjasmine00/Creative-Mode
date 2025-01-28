@@ -74,8 +74,7 @@ bool ObjectSelectPopup::init(EditorUI* editorUI){
     m_searchInput->setPositionX(m_searchInput->getPositionX() - 18);
     m_searchInput->setCallback([this] (std::string str) {
         if (m_scrollLayer) {
-            m_scrollLayer->clearButtons();
-            m_scrollLayer->clearRows();
+            m_scrollLayer->cleanupScroll();
         }
         queueInMainThread([this, str] {
             generateList(-2, str, true);
@@ -166,13 +165,16 @@ void ObjectSelectPopup::setTooltipPosition(CCPoint point) {
 }
 
 void ObjectSelectPopup::setTooltipVisible(bool visible) {
-
     if (!m_queueVisible && visible) {
         m_queueVisible = true;
-        queueInMainThread([this] {
-            if (m_tooltip && !m_isDraggingScroll) m_tooltip->setVisible(true);
-            m_queueVisible = false;
-        });
+        if (m_tooltip) {
+            m_tooltip->retain();
+            queueInMainThread([this] {
+                if (!m_isDraggingScroll) m_tooltip->setVisible(true);
+                m_tooltip->release();
+                m_queueVisible = false;
+            });
+        }
     }
     
     if (m_tooltip) m_tooltip->setVisible(visible);
@@ -213,34 +215,6 @@ void ObjectSelectPopup::onTab(CCObject* obj) {
     static_cast<CCMenuItemSpriteExtra*>(obj)->setOpacity(255);
 }
 
-CCMenuItemSpriteExtra* ObjectSelectPopup::createObjectButton(int id) {
-
-    CCNode* objectContainer = CCNode::create();
-    CCSprite* slotSprite = CCSprite::create("slot.png"_spr);
-    slotSprite->setZOrder(-10);
-
-    objectContainer->setAnchorPoint({1, 0.5});
-
-    CreateMenuItem* cmi = m_editorUI->getCreateBtn(id, 0);
-    ButtonSprite* buttonSprite = cmi->getChildByType<ButtonSprite*>(0);
-    GameObject* object = buttonSprite->getChildByType<GameObject*>(0);
-
-    objectContainer->setScale(ObjectSelectPopup::s_scaleMult * 0.8);
-    objectContainer->addChild(object);
-
-    objectContainer->setContentSize({40, 40});
-
-    CCMenuItemSpriteExtra* btn = CCMenuItemSpriteExtra::create(objectContainer, nullptr, nullptr);
-    objectContainer->setPositionY(objectContainer->getPositionY() - 2 * objectContainer->getScale());
-    btn->addChild(slotSprite);
-    btn->setContentSize({25.6, 25.6});
-    btn->setTag(id);
-    slotSprite->setPosition(btn->getContentSize()/2);
-    slotSprite->setScale(btn->getContentSize().width / slotSprite->getContentSize().width);
-
-    return btn;
-}
-
 float ObjectSelectPopup::getScroll() {
     return m_scrollLayer->m_contentLayer->getPositionY();
 }
@@ -258,6 +232,7 @@ void ObjectSelectPopup::clearSearch(CCObject* sender) {
 }
 
 void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
+    m_isDraggingScroll = false;
 
     if (tab == m_tab && !reset) return;
     if (!reset) if (m_searchInput) m_searchInput->setString("", false);
@@ -311,7 +286,10 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
 
             for (CCMenuItem* btn : allButtons) {
                 for (const auto& nameData : nameScores) {
-                    if (btn->getTag() == nameData.id) buttons.push_back(btn);
+                    if (btn->getTag() == nameData.id) {
+                        static_cast<HoverableCCMenuItemSpriteExtra*>(btn)->setPopup(this);
+                        buttons.push_back(btn);
+                    }
                 }
             }
         }
@@ -326,6 +304,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
         buttons = std::vector<CCMenuItem*>(fields->m_tabObjects[tab].begin(), fields->m_tabObjects[tab].end());
     }
 
+    if (m_scrollLayer) m_scrollLayer->cleanupScroll();
     m_scrollLayer = ScrollLayerPro::create({contentSize.width, contentSize.height - heightOffset}, [this] (bool dragging) {
         m_isDraggingScroll = dragging;
         if (dragging) setTooltipVisible(false);
@@ -436,6 +415,7 @@ void ObjectSelectPopup::onClose(cocos2d::CCObject*){
     this->setKeypadEnabled(false);
     this->setTouchEnabled(false);
     this->removeFromParentAndCleanup(true);
+    if (m_scrollLayer) m_scrollLayer->cleanupScroll();
 }
 
 ObjectSelectPopup* ObjectSelectPopup::create(EditorUI* editorUI) {

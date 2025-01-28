@@ -34,7 +34,6 @@ public:
     static ObjectSelectPopup* create(EditorUI* editorUI);
     void onClose(cocos2d::CCObject*) override;
     void generateList(int tab, std::string query = "", bool reset = false);
-    CCMenuItemSpriteExtra* createObjectButton(int id);
     void onTab(CCObject* obj);
     void onClear(CCObject* obj);
     void setScroll(float scroll);

@@ -46,7 +46,9 @@ public:
         bool currentParentVisible  = false;
         for (HoverableCCMenuItemSpriteExtra* item : m_hoverableItems) {
             if (ObjectSelectPopup* popup = item->getCurrentPopup()) {
-                if (popup->isDraggingScroll()) return;
+                if (popup->isDraggingScroll()) {
+                    return;
+                }
             }
             CCMenu* parent = static_cast<CCMenu*>(item->getParent());
             if (parent != currentParent) {
