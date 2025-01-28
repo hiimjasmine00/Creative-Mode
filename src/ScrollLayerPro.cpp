@@ -47,20 +47,17 @@ void ScrollLayerPro::setButtonsEnabled(bool on){
 }
 
 void ScrollLayerPro::updateRowVisibility() {
-    //delay a frame so m_rows is cleared before this is ran again when cleaned up (rare but possible crash)
-    queueInMainThread([this] {
-        float scrollPos = m_contentLayer->getPositionY();
+    float scrollPos = m_contentLayer->getPositionY();
 
-        float rowsHeight = m_rowCount * m_rowHeight;
+    float rowsHeight = m_rowCount * m_rowHeight;
 
-        float rowMin = -(scrollPos) - m_rowHeight ;
-        float rowMax = -(scrollPos) + rowsHeight + m_rowHeight;
+    float rowMin = -(scrollPos) - m_rowHeight ;
+    float rowMax = -(scrollPos) + rowsHeight + m_rowHeight;
 
-        for (CCNode* row : m_rows) {
-            float rowY = row->getPosition().y;
-            row->setVisible(rowY > rowMin && rowY < rowMax);
-        }
-    });
+    for (CCNode* row : m_rows) {
+        float rowY = row->getPosition().y;
+        row->setVisible(rowY > rowMin && rowY < rowMax);
+    }
 }
 
 void ScrollLayerPro::listenForPosChange(float dt) {

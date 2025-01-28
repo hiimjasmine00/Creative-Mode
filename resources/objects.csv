@@ -133,13 +133,13 @@
 157,Wavy Decoration
 158,Wavy Decoration Left Edge
 159,Wavy Decoration Right Edge
-170,Electric Layered Slab
-171,Electric Layered Slab Edge 1
-172,Electric Layered Slab Edge 2
-173,Electric Layered Corner Square
-174,Electric Layered Slab Edge 3
-175,Electric Layered Square
-176,Electric Layered Tiny Square
+170,Metallic Slab
+171,Metallic Slab Edge 1
+172,Metallic Slab Edge 2
+173,Metallic Corner Square
+174,Metallic Slab Edge 3
+175,Metallic Square
+176,Metallic Tiny Square
 177,Ice Spike
 178,Half Ice Spike
 179,Small Ice Spike
@@ -153,9 +153,9 @@
 187,Medium Outline Blade
 188,Small Outline Blade
 190,Tall Diamond Rod
-192,Electric Layered Slab Singular
-194,Electric Layered Inner Square 
-197,Electric Layered Slab Edge 4
+192,Metallic Slab Singular
+194,Metallic Inner Square 
+197,Metallic Slab Edge 4
 200,Slow Speed Boost
 201,Normal Speed Boost
 202,Double Speed Boost
@@ -238,12 +238,12 @@
 307,Mechanical Wide Slope
 324,Striped Ledge Connector
 325,Long Striped Ledge Conector
-326,Electroman Slope
-327,Electroman Long Slope
-328,Electroman Slope Connector
-329,Electroman Long Slope Connector
 349,Mechanical Colored Slope
-351,Mechanical Colored Long Slope
+351,Mechanical Colored Wide Slope
+326,Metallic Slope
+327,Metallic Wide Slope
+328,Metallic Slope Connector
+329,Metallic Wide Slope Connector
 358,Extra Slope Connector
 371,Black Gradient Slope
 372,Black Gradient Wide Slope
@@ -274,9 +274,9 @@
 420,Water 2
 448,Rough Damage Block
 449,Rough Damage Block 2
-450,Big Equilizer 
-451,Small Equilizer 
-452,Tiny Equilizer 
+450,Big Equalizer 
+451,Small Equalizer 
+452,Tiny Equalizer 
 453,Black Mechanical Connector
 454,Black Mechanical Connector 2
 455,Black Mechanical Connector 3
@@ -294,10 +294,10 @@
 476,Colored Connected Inner Square
 477,Colored Connected Square Singular
 478,Colored Connected Top Pillar Square
-479,Colored Connected Corner 1 Square
-480,Colored Connected Top Square
-481,Colored Connected Corner 2 Square
-482,Colored Connected Corner 3 Square
+479,Colored Connected Corner Square
+480,Colored Connected Pillar Square
+481,Colored Connected Three Point Square
+482,Colored Connected Four Point Square
 485,Colored Round Connected Inner 1 Square
 486,Colored Round Connected Square Singular
 487,Colored Round Connected Corner 1 Square
@@ -452,16 +452,16 @@
 638,
 639,
 640,
-641,
-642,
-643,
-644,
-645,
+641,Plus Top Square
+642,Plus Outer Corner Square
+643,Plus Top Pillar Square
+644,Plus Square Singular
+645,Plus Pillar Square
 646,
-647,
-648,
-649,
-650,
+647,Plus Inner Square
+648,Plus Inner Corner Square
+649,Plus Pillar/Top Square
+650,Plus Empty Square Singular
 653,
 654,
 655,
@@ -529,7 +529,7 @@
 735,
 736,
 738,
-739,
+739,Plus Pillar Corner Square
 740,Large Invisible Blade
 741,Medium Invisible Blade
 742,Small Invisible Blade
@@ -632,10 +632,10 @@
 904,
 905,
 906,
-907,
-908,
-909,
-910,
+907,Large Bush
+908,Medium Bush
+909,Small Bush
+910,Tiny Bush
 911,
 914,Text
 916,
@@ -782,8 +782,8 @@
 1070,
 1071,
 1075,
-1076,
-1077,
+1076,Plus Four Point Square
+1077,Plus Diagonal Square
 1078,
 1079,
 1080,
@@ -850,9 +850,9 @@
 1147,Stripe Checkered 1 Square
 1148,Stripe Inner Square
 1149,Stripe Pillar/Outer Corner Square
-1150,Stripe Pillar Corner 1 Square
-1151,Stripe Pillar Corner 2 Square
-1152,Stripe Pillar Corner 3 Square
+1150,Stripe Pillar Corner Square
+1151,Stripe Three Point Corner Square
+1152,Stripe Four Point Corner Square
 1153,Stripe Checkered 2 Square
 1154,Small Outline Top
 1155,Small Outline Outer Corner
@@ -989,7 +989,7 @@
 1295,
 1296,
 1297,
-1298,
+1298,Plus Triple Inner Corner Square
 1299,
 1300,
 1301,
@@ -1333,7 +1333,7 @@
 1752,Triangle Swirl
 1753,
 1754,
-1755,Allow Wave Slide Modifier
+1755,Allow Wave Drag Modifier
 1756,
 1757,
 1758,
@@ -1398,14 +1398,14 @@
 1817,Pickup Trigger
 1818,Background Effect On Trigger
 1819,Background Effect Off Trigger
-1820,
-1821,
-1823,
-1824,
-1825,
-1826,
-1827,
-1828,
+1820,Colored Checkered Square
+1821,Colored Checkered Top Square
+1823,Colored Checkered Outer Corner Square
+1824,Colored Checkered Inner Corner Square
+1825,Colored Checkered Inner Square
+1826,Colored Checkered Pillar Top Square
+1827,Colored Checkered Pillar Square
+1828,Colored Checkered Pillar/Top Square
 1829,Stop Dash Modifier
 1830,
 1831,Large Rotating Quarter Circle

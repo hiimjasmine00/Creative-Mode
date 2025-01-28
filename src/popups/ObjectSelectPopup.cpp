@@ -238,7 +238,11 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     if (!reset) if (m_searchInput) m_searchInput->setString("", false);
     m_tab = tab;
 
-    m_mainLayer->removeChildByID("object-list");
+    if (m_scrollLayer) {
+        m_scrollLayer->cleanupScroll();
+        m_scrollLayer->removeFromParent();
+    }
+
     m_mainLayer->removeChildByID("object-list-scrollbar");
 
     CCSize contentSize = { m_mainLayer->getContentSize().width - 35.f, m_mainLayer->getContentSize().height - 50.f };
@@ -304,7 +308,6 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
         buttons = std::vector<CCMenuItem*>(fields->m_tabObjects[tab].begin(), fields->m_tabObjects[tab].end());
     }
 
-    if (m_scrollLayer) m_scrollLayer->cleanupScroll();
     m_scrollLayer = ScrollLayerPro::create({contentSize.width, contentSize.height - heightOffset}, [this] (bool dragging) {
         m_isDraggingScroll = dragging;
         if (dragging) setTooltipVisible(false);

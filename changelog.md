@@ -1,3 +1,8 @@
+# 1.0.7
+- Added More Object Names
+  - **Thank you @vanivanelson**
+- Fix a crash oopsies
+
 # 1.0.6
 - Hopefully fix a rare crash
 - Fix some hover bugs
