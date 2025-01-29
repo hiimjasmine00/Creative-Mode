@@ -1,3 +1,8 @@
+# 1.0.8
+- Code cleanup, hopefully fix more crashes
+- Added More Object Names
+  - **Thank you @cherry.chip**
+
 # 1.0.7
 - Added More Object Names
   - **Thank you @vanivanelson**

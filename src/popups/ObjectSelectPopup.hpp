@@ -25,6 +25,7 @@ private:
     CCLabelBMFont* m_tooltipText;
     CCLabelBMFont* m_tooltipObjID;
     CCNode* m_searchBar;
+    std::unordered_map<int, Ref<CCMenuItem>> m_searchButtons;
     geode::TextInput* m_searchInput;
     int m_tab = -1;
     bool m_isDraggingScroll = false;
@@ -44,4 +45,6 @@ public:
     bool isDraggingScroll();
     float getScroll();
     CCMenuItemSpriteExtra* createTabButton(std::string spriteName, cocos2d::SEL_MenuHandler callback, int tag, float scale = 1);
+
+    std::vector<CCMenuItem*> m_buttons;
 };

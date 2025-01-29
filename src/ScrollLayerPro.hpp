@@ -25,9 +25,6 @@ public:
     void ccTouchMoved(cocos2d::CCTouch* p0, cocos2d::CCEvent* p1) override;
     void ccTouchEnded(cocos2d::CCTouch* p0, cocos2d::CCEvent* p1) override;
     void listenForPosChange(float dt);
-    void clearButtons();
-    void clearRows();
-    void cleanupScroll();
 
     static ScrollLayerPro* create(
             cocos2d::CCRect const& rect, std::function<void(bool)>, bool scrollWheelEnabled = true, bool vertical = true

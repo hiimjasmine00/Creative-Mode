@@ -5,28 +5,6 @@ void ScrollLayerPro::addButtons(std::vector<CCMenuItem*> buttons) {
     m_buttons = buttons;
 }
 
-void ScrollLayerPro::clearButtons() {
-    for (CCMenuItem* btn : m_buttons) {
-        static_cast<HoverableCCMenuItemSpriteExtra*>(btn)->setPopup(nullptr);
-        btn->removeFromParentAndCleanup(false);
-    }
-    m_buttons.clear();
-}
-
-void ScrollLayerPro::clearRows() {
-    for (CCNode* row : m_rows) {
-        row->removeFromParent();
-    }
-    m_rows.clear();
-}
-
-void ScrollLayerPro::cleanupScroll() {
-    clearButtons();
-    clearRows();
-    m_dragCallback = nullptr;
-    unschedule(schedule_selector(ScrollLayerPro::listenForPosChange));
-}
-
 void ScrollLayerPro::addRows(std::vector<CCNode*> nodes, float rowHeight, int visibleRowCount) {
     m_rows = nodes;
     m_rowHeight = rowHeight;

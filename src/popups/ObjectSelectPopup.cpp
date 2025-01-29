@@ -73,12 +73,7 @@ bool ObjectSelectPopup::init(EditorUI* editorUI){
     m_searchInput->setPosition(m_searchBar->getContentSize()/2);
     m_searchInput->setPositionX(m_searchInput->getPositionX() - 18);
     m_searchInput->setCallback([this] (std::string str) {
-        if (m_scrollLayer) {
-            m_scrollLayer->cleanupScroll();
-        }
-        queueInMainThread([this, str] {
-            generateList(-2, str, true);
-        });
+        generateList(-2, str, true);
     });
     m_mainLayer->addChildAtPosition(
         m_searchBar,
@@ -238,12 +233,11 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     if (!reset) if (m_searchInput) m_searchInput->setString("", false);
     m_tab = tab;
 
+    m_mainLayer->removeChildByID("object-list-scrollbar");
+
     if (m_scrollLayer) {
-        m_scrollLayer->cleanupScroll();
         m_scrollLayer->removeFromParent();
     }
-
-    m_mainLayer->removeChildByID("object-list-scrollbar");
 
     CCSize contentSize = { m_mainLayer->getContentSize().width - 35.f, m_mainLayer->getContentSize().height - 50.f };
     float heightOffset = 0;
@@ -262,13 +256,21 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
             ->setGap(0.0f)
     );
 
-    auto fields = static_cast<MyEditorUI*>(m_editorUI)->m_fields.self();
-    std::vector<CCMenuItem*> buttons;
+    MyEditorUI* myEditorUI = static_cast<MyEditorUI*>(m_editorUI);
+
+    auto fields = myEditorUI->m_fields.self();
     std::vector<CCNode*> rows;
+    m_buttons.clear();
 
     if (tab == -2) {
+        if (m_searchButtons.empty()) {
+            for (auto& [k, v] : fields->m_gameObjects) {
+                HoverableCCMenuItemSpriteExtra* btn = myEditorUI->createObjectButton(k, fields);
+                btn->setPopup(this);
+                m_searchButtons[k] = btn;
+            }
+        }
         m_searchBar->setVisible(true);
-        std::vector<CCMenuItem*> allButtons = std::vector<CCMenuItem*>(fields->m_allButtons.begin(), fields->m_allButtons.end());
         if (!query.empty()) {
 
 		    std::vector<NameData> nameScores;
@@ -288,24 +290,31 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
                 return a.score > b.score;
             });
 
-            for (CCMenuItem* btn : allButtons) {
+            for (auto& [k, v] : fields->m_gameObjects) {
                 for (const auto& nameData : nameScores) {
-                    if (btn->getTag() == nameData.id) {
-                        static_cast<HoverableCCMenuItemSpriteExtra*>(btn)->setPopup(this);
-                        buttons.push_back(btn);
+                    if (k == nameData.id) {
+                        m_buttons.push_back(m_searchButtons[k]);
                     }
                 }
             }
         }
         else {
-            buttons = allButtons;
+            for (auto& [k, v] : fields->m_gameObjects) {
+                m_buttons.push_back(m_searchButtons[k]);
+            }
         }
         heightOffset = 30 * ObjectSelectPopup::s_scaleMult;
         rowOffset = 1;
     }
     else {
+        m_searchButtons.clear();
         m_searchBar->setVisible(false);
-        buttons = std::vector<CCMenuItem*>(fields->m_tabObjects[tab].begin(), fields->m_tabObjects[tab].end());
+        std::vector<std::pair<int, GameObject*>> objects(fields->m_tabObjects[tab].begin(), fields->m_tabObjects[tab].end());
+        for (auto& [k, v] : objects) {
+            HoverableCCMenuItemSpriteExtra* btn = myEditorUI->createObjectButton(k, fields);
+            btn->setPopup(this);
+            m_buttons.push_back(btn);
+        }
     }
 
     m_scrollLayer = ScrollLayerPro::create({contentSize.width, contentSize.height - heightOffset}, [this] (bool dragging) {
@@ -326,12 +335,12 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
         float posX = 0;
         for (int j = 0; j < itemsPerRow; j++) {
             int pos = i * itemsPerRow + j;
-            if (pos >= buttons.size()) {
+            if (pos >= m_buttons.size()) {
                 shouldBreak = true;
                 break;
             }
             posX += 30 * ObjectSelectPopup::s_scaleMult;
-            HoverableCCMenuItemSpriteExtra* btn = static_cast<HoverableCCMenuItemSpriteExtra*>(buttons[pos]);
+            HoverableCCMenuItemSpriteExtra* btn = static_cast<HoverableCCMenuItemSpriteExtra*>(m_buttons[pos]);
             btn->setScale(0.935f);
             btn->m_baseScale = 0.935f;
             btn->setPosition({posX - center, center});
@@ -348,7 +357,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     container->ignoreAnchorPointForPosition(true);
     container->updateLayout();
     
-    m_scrollLayer->addButtons(buttons);
+    m_scrollLayer->addButtons(m_buttons);
     m_scrollLayer->setAnchorPoint({0, 0});
     m_scrollLayer->addRows(rows, 30 * ObjectSelectPopup::s_scaleMult, 8 - rowOffset);
     m_scrollLayer->setID("object-list");
@@ -389,9 +398,9 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     );
 
     for (auto& [k, v] : fields->m_tabObjects) {
-        for (HoverableCCMenuItemSpriteExtra* btn : v) {
+        for (CCMenuItem* btn : m_buttons) {
             CCNode* slotOverlay = btn->getChildByID("slot-overlay");
-            slotOverlay->setVisible(static_cast<MyEditorUI*>(m_editorUI)->m_selectedObjectIndex == btn->getTag());
+            slotOverlay->setVisible(myEditorUI->m_selectedObjectIndex == btn->getTag());
         }
     }
 
@@ -418,7 +427,6 @@ void ObjectSelectPopup::onClose(cocos2d::CCObject*){
     this->setKeypadEnabled(false);
     this->setTouchEnabled(false);
     this->removeFromParentAndCleanup(true);
-    if (m_scrollLayer) m_scrollLayer->cleanupScroll();
 }
 
 ObjectSelectPopup* ObjectSelectPopup::create(EditorUI* editorUI) {

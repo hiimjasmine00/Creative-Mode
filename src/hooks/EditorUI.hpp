@@ -12,13 +12,12 @@ using namespace geode::prelude;
 class $modify(MyEditorUI, EditorUI) {
 
 	static void onModify(auto& self) {
-        (void) self.setHookPriorityAfterPost("EditorUI::init", "hjfod.betteredit");\
+        (void) self.setHookPriorityAfterPost("EditorUI::init", "hjfod.betteredit");
     }
 
 	struct Fields {
-		std::unordered_map<int, Ref<GameObject>> m_gameObjects;
-		std::unordered_map<int, std::vector<Ref<HoverableCCMenuItemSpriteExtra>>> m_tabObjects;
-		std::vector<Ref<HoverableCCMenuItemSpriteExtra>> m_allButtons;
+		std::map<int, Ref<GameObject>> m_gameObjects;
+		std::unordered_map<int, std::vector<std::pair<int, Ref<GameObject>>>> m_tabObjects;
 		CCMenu* m_creativeMenu;
 		ObjectSelectPopup* m_objectSelectPopup = nullptr;
 	};
@@ -59,15 +58,10 @@ class $modify(MyEditorUI, EditorUI) {
 			if (tab <= -1 || tab >= 13) continue;
 			if (!fields->m_tabObjects.contains(tab)) {
 				for (int id : buttonBar->m_fields->m_objectIDs) {
-
-					fields->m_tabObjects[tab].push_back(createObjectButton(id, fields));
+					fields->m_tabObjects[tab].push_back({id, createGameObject(id, fields)});
 				}
 			}
 		}
-		std::map<int, GameObject*> ordered(fields->m_gameObjects.begin(), fields->m_gameObjects.end());
-        for (auto& [k, v] : ordered) {
-			fields->m_allButtons.push_back(createObjectButton(k, fields));
-        }
 
 		return true;
 	}
@@ -94,19 +88,13 @@ class $modify(MyEditorUI, EditorUI) {
 		int id = sender->getTag();
 
 		HoverableCCMenuItemSpriteExtra* btn = static_cast<HoverableCCMenuItemSpriteExtra*>(sender);
+		ObjectSelectPopup* popup = btn->getCurrentPopup();
 		CCNode* overlay = btn->getChildByID("slot-overlay");
 
 		m_selectedObjectIndex = id;
 		updateCreateMenu(false);
 
-		for (auto& [k, v] : fields->m_tabObjects) {
-			for (HoverableCCMenuItemSpriteExtra* btn : v) {
-				CCNode* overlay2 = btn->getChildByID("slot-overlay");
-				overlay2->setVisible(false);
-			}
-		}
-
-		for (auto& btn : fields->m_allButtons) {
+		for (CCMenuItem* btn : popup->m_buttons) {
 			CCNode* overlay2 = btn->getChildByID("slot-overlay");
 			overlay2->setVisible(btn->getTag() == id);
 		}
@@ -133,6 +121,7 @@ class $modify(MyEditorUI, EditorUI) {
 	}
 
 	GameObject* createGameObject(int id, MyEditorUI::Fields* fields) {
+		if (id == 0) return nullptr;
 		if (fields->m_gameObjects.contains(id)) {
 			return fields->m_gameObjects[id];
 		}
@@ -163,7 +152,9 @@ class $modify(MyEditorUI, EditorUI) {
 
 		objectContainer->setAnchorPoint({1, 0.5});
 		objectContainer->setScale(ObjectSelectPopup::s_scaleMult * 0.7);
-		objectContainer->addChild(createGameObject(id, fields));
+		if (GameObject* obj = createGameObject(id, fields)) {
+			objectContainer->addChild(obj);
+		}
 
 		objectContainer->setContentSize({40, 40});
 		using namespace std::placeholders;
