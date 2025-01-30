@@ -54,7 +54,7 @@ class $modify(MyEditorUI, EditorUI) {
 		addChild(fields->m_creativeMenu);
 
 		for (MyEditButtonBar* buttonBar : CCArrayExt<MyEditButtonBar*>(m_createButtonBars)) {
-			int tab = buttonBar->m_unknown;
+			int tab = buttonBar->m_tabIndex;
 			if (tab <= -1 || tab >= 13) continue;
 			if (!fields->m_tabObjects.contains(tab)) {
 				for (int id : buttonBar->m_fields->m_objectIDs) {
