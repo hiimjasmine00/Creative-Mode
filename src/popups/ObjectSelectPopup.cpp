@@ -273,7 +273,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
         m_searchBar->setVisible(true);
         if (!query.empty()) {
 
-		    std::vector<NameData> nameScores;
+		    std::vector<NameData> nameScores{};
 
             for (auto& [k, v] : ObjectNames::get()->m_names) {
 			    int score = 0;
@@ -285,15 +285,17 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
 			        nameScores.push_back({k, v, score});
                 }
             }
-            
-            std::sort(nameScores.begin(), nameScores.end(), [&](const auto& a, const auto& b) {
-                return a.score > b.score;
-            });
 
-            for (auto& [k, v] : fields->m_gameObjects) {
-                for (const auto& nameData : nameScores) {
-                    if (k == nameData.id) {
-                        m_buttons.push_back(m_searchButtons[k]);
+            if (!nameScores.empty()) {
+                std::sort(nameScores.begin(), nameScores.end(), [&](const auto& a, const auto& b) {
+                    return a.score > b.score;
+                });
+
+                for (auto& [k, v] : fields->m_gameObjects) {
+                    for (const auto& nameData : nameScores) {
+                        if (k == nameData.id) {
+                            m_buttons.push_back(m_searchButtons[k]);
+                        }
                     }
                 }
             }

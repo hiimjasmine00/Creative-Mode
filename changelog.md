@@ -1,3 +1,6 @@
+# 1.0.9
+- One last attempt to fix the crash for now, this should in theory do it, if it doesn't, I will explode :3
+
 # 1.0.8
 - Code cleanup, hopefully fix more crashes
 - Added More Object Names
