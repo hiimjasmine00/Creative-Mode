@@ -12,7 +12,7 @@ class $modify(MyEditButtonBar, EditButtonBar) {
     }
 
 	struct Fields {
-		std::vector<int> m_objectIDs;
+		std::vector<int> m_objectIDs{};
 	};
 
 	void loadFromItems(CCArray* p0, int p1, int p2, bool p3) {

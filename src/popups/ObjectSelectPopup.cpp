@@ -229,6 +229,10 @@ void ObjectSelectPopup::clearSearch(CCObject* sender) {
 void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     m_isDraggingScroll = false;
 
+    for (auto& [k, v] : m_searchButtons) {
+        v->removeFromParentAndCleanup(false);
+    }
+
     if (tab == m_tab && !reset) return;
     if (!reset) if (m_searchInput) m_searchInput->setString("", false);
     m_tab = tab;

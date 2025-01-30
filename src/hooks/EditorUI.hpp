@@ -16,8 +16,8 @@ class $modify(MyEditorUI, EditorUI) {
     }
 
 	struct Fields {
-		std::map<int, Ref<GameObject>> m_gameObjects;
-		std::unordered_map<int, std::vector<std::pair<int, Ref<GameObject>>>> m_tabObjects;
+		std::map<int, Ref<GameObject>> m_gameObjects{};
+		std::unordered_map<int, std::vector<std::pair<int, Ref<GameObject>>>> m_tabObjects{};
 		CCMenu* m_creativeMenu;
 		ObjectSelectPopup* m_objectSelectPopup = nullptr;
 	};

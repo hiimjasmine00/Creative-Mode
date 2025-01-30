@@ -6,7 +6,7 @@ using namespace geode::prelude;
 
 class ObjectNames {
     public:
-    std::unordered_map<int, std::string> m_names;
+    std::unordered_map<int, std::string> m_names{};
 
     ObjectNames() {
 
