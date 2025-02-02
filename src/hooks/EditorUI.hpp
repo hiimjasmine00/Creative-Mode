@@ -14,6 +14,7 @@ class $modify(MyEditorUI, EditorUI) {
 
 	static void onModify(auto& self) {
         (void) self.setHookPriorityAfterPost("EditorUI::init", "hjfod.betteredit");
+        (void) self.setHookPriorityAfterPost("EditorUI::init", "alphalaneous.vanilla_pages");
         (void) self.setHookPriorityAfterPost("EditorUI::onCreateButton", "alphalaneous.editorsounds");
     }
 
@@ -143,6 +144,10 @@ class $modify(MyEditorUI, EditorUI) {
 		float y = 90;
 		
 		if (CCNode* toolbarTogglesMenu = getChildByID("toolbar-toggles-menu")) {
+			if (!Loader::get()->isModLoaded("hjfod.betteredit")) {
+				toolbarTogglesMenu->setAnchorPoint({1, 0});
+				toolbarTogglesMenu->setPosition({winSize.width - 3, 0});
+			}
 			x = toolbarTogglesMenu->getPositionX() - toolbarTogglesMenu->getScaledContentWidth() - 1;
 			y = toolbarTogglesMenu->getPositionY() + toolbarTogglesMenu->getScaledContentHeight();
 		}
