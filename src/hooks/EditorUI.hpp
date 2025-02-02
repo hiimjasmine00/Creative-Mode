@@ -137,6 +137,7 @@ class $modify(MyEditorUI, EditorUI) {
 		fields->m_tooltip->addChild(fields->m_tooltipText);
 		fields->m_tooltip->addChild(fields->m_tooltipBG);
 		fields->m_tooltip->addChild(fields->m_tooltipObjID);
+		fields->m_tooltip->setScale(m_tabsMenu->getScale() * mod->getSettingValue<float>("tooltip-scale"));
 
 		addChild(fields->m_tooltip);
 
@@ -350,8 +351,8 @@ class $modify(MyEditorUI, EditorUI) {
 
 		CCSize winSize = CCDirector::get()->getWinSize();
 
-		if (fields->m_tooltip->getContentSize().width + point.x > winSize.width) {
-			point.x = winSize.width - fields->m_tooltip->getContentSize().width;
+		if (fields->m_tooltip->getScaledContentSize().width + point.x > winSize.width) {
+			point.x = winSize.width - fields->m_tooltip->getScaledContentSize().width;
 		}
 
 		if (fields->m_tooltip) fields->m_tooltip->setPosition(point);

@@ -4,7 +4,16 @@
 void MyEditButtonBar::onObjectButtonHover(CCObject* sender, CCPoint point, bool hovering, bool isStart) {
 
     MyEditorUI* editorUI = static_cast<MyEditorUI*>(EditorUI::get());
+    Mod* mod = Mod::get();
+
     if (isStart && hovering) {
+        
+        if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
+            if (ButtonSprite* buttonSprite = static_cast<CCNode*>(sender)->getChildByType<ButtonSprite*>(0)) {
+                buttonSprite->getChildByID("highlight")->setVisible(true);
+            }
+        }
+
         std::string name;
         if (sender->getTag() < 0) {
             name = "Custom Object";
@@ -12,20 +21,26 @@ void MyEditButtonBar::onObjectButtonHover(CCObject* sender, CCPoint point, bool 
         else if (sender->getTag() > 0) {
             name = ObjectNames::get()->nameForID(sender->getTag());
         }
-        editorUI->setTooltipText(name, sender->getTag());
-        editorUI->setTooltipVisible(true);
-        if (ButtonSprite* buttonSprite = static_cast<CCNode*>(sender)->getChildByType<ButtonSprite*>(0)) {
-		    buttonSprite->getChildByID("highlight")->setVisible(true);
+        
+        if (mod->getSettingValue<bool>("enable-tooltips")) {
+            editorUI->setTooltipText(name, sender->getTag());
+            editorUI->setTooltipVisible(true);
         }
     }
     if (isStart && !hovering) {
-        editorUI->setTooltipVisible(false);
-        if (ButtonSprite* buttonSprite = static_cast<CCNode*>(sender)->getChildByType<ButtonSprite*>(0)) {
-		    buttonSprite->getChildByID("highlight")->setVisible(false);
+        if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
+            if (ButtonSprite* buttonSprite = static_cast<CCNode*>(sender)->getChildByType<ButtonSprite*>(0)) {
+                buttonSprite->getChildByID("highlight")->setVisible(false);
+            }
+        }
+        if (mod->getSettingValue<bool>("enable-tooltips")) {
+            editorUI->setTooltipVisible(false);
         }
     }
     if (hovering) {
-        editorUI->setTooltipPosition(point);
+        if (mod->getSettingValue<bool>("enable-tooltips")) {
+            editorUI->setTooltipPosition(point);
+        }
     }
 }
 
@@ -88,9 +103,7 @@ void MyEditButtonBar::loadFromItems(CCArray* p0, int p1, int p2, bool p3) {
             if (CreateMenuItem* cmi = typeinfo_cast<CreateMenuItem*>(node)) {
                 fields->m_objectIDs.push_back(cmi->m_objectID);
                 cmi->setTag(cmi->m_objectID);
-                if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
-                    static_cast<HoverEnabledCCMenuItemSpriteExtra*>(static_cast<CCMenuItemSpriteExtra*>(cmi))->enableHover(std::bind(&MyEditButtonBar::onObjectButtonHover, this, _1, _2, _3, _4));
-                }
+                static_cast<HoverEnabledCCMenuItemSpriteExtra*>(static_cast<CCMenuItemSpriteExtra*>(cmi))->enableHover(std::bind(&MyEditButtonBar::onObjectButtonHover, this, _1, _2, _3, _4));
             }
         }
     }

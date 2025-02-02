@@ -1,3 +1,6 @@
+# 1.1.1
+- Tooltip settings as requested :P
+
 # 1.1.0
 - Revamped Tab UI (Toggleable in settings)
 - Every objects (Excluding Pixel Art Objects) has been named 

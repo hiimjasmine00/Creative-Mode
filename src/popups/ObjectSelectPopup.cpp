@@ -56,6 +56,7 @@ bool ObjectSelectPopup::init(EditorUI* editorUI){
     m_tooltip->addChild(m_tooltipText);
     m_tooltip->addChild(m_tooltipBG);
     m_tooltip->addChild(m_tooltipObjID);
+    m_tooltip->setScale(Mod::get()->getSettingValue<float>("tooltip-scale"));
 
     addChild(m_tooltip);
 
@@ -168,8 +169,8 @@ void ObjectSelectPopup::setTooltipPosition(CCPoint point) {
 
 	CCSize winSize = CCDirector::get()->getWinSize();
 
-    if (m_tooltip->getContentSize().width + point.x > winSize.width) {
-        point.x = winSize.width - m_tooltip->getContentSize().width;
+    if (m_tooltip->getScaledContentSize().width + point.x > winSize.width) {
+        point.x = winSize.width - m_tooltip->getScaledContentSize().width;
     }
 
     if (m_tooltip) m_tooltip->setPosition(point);
