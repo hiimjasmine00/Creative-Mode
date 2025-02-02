@@ -333,6 +333,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     if (m_scrollLayer) {
         m_scrollLayer->removeFromParent();
     }
+    float gap = 2.5f;
 
     CCNode* container = CCNode::create();
     container->setContentSize(contentSize);
@@ -344,7 +345,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
             ->setAutoGrowAxis(contentSize.height)
             ->setCrossAxisOverflow(false)
             ->setGrowCrossAxis(true)
-            ->setGap(0.0f)
+            ->setGap(gap)
     );
 
     m_scrollLayer = ScrollLayerPro::create({contentSize.width, contentSize.height - heightOffset}, [this] (bool dragging) {
@@ -352,8 +353,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
         if (dragging) setTooltipVisible(false);
     });
 
-    int itemsPerRow = 11;
-
+    int itemsPerRow = 10;
     int i = 0;
     float center = (30 * ObjectSelectPopup::s_scaleMult) / 2.f;
     while (true) {
@@ -375,6 +375,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
             btn->m_baseScale = 0.935f;
             btn->setPosition({posX - center, center});
             row->addChild(btn);
+            posX += gap;
         }
         if (row->getChildrenCount() != 0) {
             container->addChild(row);

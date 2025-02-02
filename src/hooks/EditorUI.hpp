@@ -330,8 +330,8 @@ class $modify(MyEditorUI, EditorUI) {
 
                 static_cast<HoverEnabledCCMenuItemSpriteExtra*>(static_cast<CCMenuItemSpriteExtra*>(ret))->enableHover(std::bind(&MyEditorUI::onBarObjectButtonHover, this, _1, _2, _3, _4));
 				
-				CCSprite* slotSprite = CCSprite::create("slot.png"_spr);
-				CCSprite* slotOverlay = CCSprite::create("slot-overlay.png"_spr);
+				CCSprite* slotSprite = CCSprite::create("rounded-slot.png"_spr);
+				CCSprite* slotOverlay = CCSprite::create("rounded-slot-overlay.png"_spr);
 				slotSprite->setZOrder(-10);
 				slotSprite->setID("slot-bg");
 				slotOverlay->setZOrder(10);
@@ -339,31 +339,36 @@ class $modify(MyEditorUI, EditorUI) {
 				slotOverlay->setID("slot-overlay");
 				slotOverlay->setColor({255, 255, 0});
 
-				CCLayerColor* highlight = CCLayerColor::create({255, 255, 255, 127});
+				CCSprite* highlight = CCSprite::create("rounded-slot-highlight.png"_spr);
 				highlight->setVisible(false);
 				highlight->setID("highlight");
 				highlight->setZOrder(-11);
+				highlight->setOpacity(127);
 
-				CCLayerColor* persistentHighlight = CCLayerColor::create({0, 150, 255, 127});
+				CCSprite* persistentHighlight = CCSprite::create("rounded-slot-highlight.png"_spr);
 				persistentHighlight->setID("persistent-highlight");
 				persistentHighlight->setZOrder(-12);
+				persistentHighlight->setOpacity(127);
+				persistentHighlight->setColor({0, 150, 255});
 
 				buttonSprite->addChild(slotSprite);
 				buttonSprite->addChild(slotOverlay);
 				buttonSprite->addChild(highlight);
-
-				highlight->setContentSize(buttonSprite->getContentSize());
-				highlight->setPositionY(highlight->getPositionY() + 2);
-
-				persistentHighlight->setContentSize(buttonSprite->getContentSize());
-				persistentHighlight->setPositionY(persistentHighlight->getPositionY() + 2);
 
 				slotSprite->setPosition(buttonSprite->getContentSize()/2);
 				slotSprite->setPositionY(slotSprite->getPositionY() + 2);
 				slotSprite->setScale(buttonSprite->getContentSize().width / slotSprite->getContentSize().width);
 				slotOverlay->setPosition(buttonSprite->getContentSize()/2);
 				slotOverlay->setPositionY(slotOverlay->getPositionY() + 2);
-				slotOverlay->setScale(buttonSprite->getContentSize().width / slotSprite->getContentSize().width);
+				slotOverlay->setScale(buttonSprite->getContentSize().width / slotOverlay->getContentSize().width);
+
+				highlight->setPosition(buttonSprite->getContentSize()/2);
+				highlight->setPositionY(highlight->getPositionY() + 2);
+				highlight->setScale(buttonSprite->getContentSize().width / highlight->getContentSize().width);
+
+				persistentHighlight->setPosition(buttonSprite->getContentSize()/2);
+				persistentHighlight->setPositionY(persistentHighlight->getPositionY() + 2);
+				persistentHighlight->setScale(buttonSprite->getContentSize().width / persistentHighlight->getContentSize().width);
 
 				queueInMainThread([ret, buttonSprite, persistentHighlight] {
 					if (typeinfo_cast<GroupInfo*>(ret->getUserObject())) {
@@ -611,11 +616,9 @@ class $modify(MyEditorUI, EditorUI) {
 		for (CCMenuItem* btn : fields->m_objectSelectPopup->m_buttons) {
 			CCSprite* overlay2 = static_cast<CCSprite*>(btn->getChildByID("slot-overlay"));
 			overlay2->setVisible(btn->getTag() == id);
-			overlay2->setColor({255, 255, 255});
 		}
 		
 		overlay->setVisible(true);
-		overlay->setColor({255, 255, 255});
 	}
 
 	void onSearchHover(CCObject* sender, CCPoint point, bool hovering, bool isStart) {
@@ -705,18 +708,19 @@ class $modify(MyEditorUI, EditorUI) {
 
 	HoverEnabledCCMenuItemSpriteExtra* createObjectButton(int id, int tab, MyEditorUI::Fields* fields) {
 		CCNode* objectContainer = CCNode::create();
-		CCSprite* slotSprite = CCSprite::create("slot.png"_spr);
-		CCSprite* slotOverlay = CCSprite::create("slot-overlay.png"_spr);
+		CCSprite* slotSprite = CCSprite::create("rounded-slot.png"_spr);
+		CCSprite* slotOverlay = CCSprite::create("rounded-slot-overlay.png"_spr);
 		slotSprite->setZOrder(-10);
 		slotOverlay->setZOrder(10);
 		slotOverlay->setVisible(false);
 		slotOverlay->setID("slot-overlay");
 		slotOverlay->setColor({255, 255, 0});
 
-		CCLayerColor* highlight = CCLayerColor::create({255, 255, 255, 127});
+		CCSprite* highlight = CCSprite::create("rounded-slot-highlight.png"_spr);
 		highlight->setVisible(false);
 		highlight->setID("highlight");
 		highlight->setZOrder(-11);
+		highlight->setOpacity(127);
 
 		objectContainer->setAnchorPoint({1, 0.5});
 		objectContainer->setScale(ObjectSelectPopup::s_scaleMult * 0.7);
@@ -734,7 +738,6 @@ class $modify(MyEditorUI, EditorUI) {
 		btn->addChild(slotOverlay);
 		btn->addChild(highlight);
 		btn->setContentSize({25.6, 25.6});
-		highlight->setContentSize(btn->getContentSize());
 
 		btn->setTag(id);
 		btn->setUserObject("tab"_spr, CCInteger::create(tab));
@@ -742,6 +745,8 @@ class $modify(MyEditorUI, EditorUI) {
 		slotSprite->setScale(btn->getContentSize().width / slotSprite->getContentSize().width);
 		slotOverlay->setPosition(btn->getContentSize()/2);
 		slotOverlay->setScale(btn->getContentSize().width / slotSprite->getContentSize().width);
+		highlight->setPosition(btn->getContentSize()/2);
+		highlight->setScale(btn->getContentSize().width / slotSprite->getContentSize().width);
 
 		return hoverBtn;
 	}

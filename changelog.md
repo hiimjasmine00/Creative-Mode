@@ -1,3 +1,9 @@
+# 1.1.4
+- Remember to save changes in about :3
+- Redesign to fit more like GD than Minecraft
+- More Pixel Object Names
+  - **Thank you @schwertboot3845**
+
 # 1.1.3
 - Fix mistake in about
 - Fix tab z ordering

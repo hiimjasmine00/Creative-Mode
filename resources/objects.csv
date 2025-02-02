@@ -1697,9 +1697,9 @@
 2204,Pixel Art 104
 2205,Pixel Art 105
 2206,Pixel Art 106
-2207,Pixel Art 107
-2208,Pixel Art 108
-2209,Pixel Art 109
+2207,Grave Pixel Art
+2208,Grave Pixel Art 2
+2209,Grave Pixel Art 3
 2210,Pixel Art 110
 2211,Pixel Art 111
 2212,Pixel Art 112
@@ -1741,11 +1741,11 @@
 2248,Pixel Art 148
 2249,Pixel Art 149
 2250,Pixel Art 150
-2251,Pixel Art 151
+2251,Vine Pixel Art
 2252,Pixel Art 152
 2253,Pixel Art 153
 2254,Pixel Art 154
-2255,Pixel Art 155
+2255,Singular Thin Spike Pixel Art
 2256,Pixel Art 156
 2257,Pixel Art 157
 2258,Pixel Art 158
@@ -1800,7 +1800,7 @@
 2307,Pixel Art 207
 2308,Pixel Art 208
 2309,Pixel Art 209
-2310,Pixel Art 210
+2310,Singular Wide Spike Pixel Art
 2311,Pixel Art 211
 2312,Pixel Art 212
 2313,Pixel Art 213
@@ -1826,11 +1826,11 @@
 2333,Pixel Art 233
 2334,Pixel Art 234
 2335,Pixel Art 235
-2336,Pixel Art 236
-2337,Pixel Art 237
-2338,Pixel Art 238
-2339,Pixel Art 239
-2340,Pixel Art 240
+2336,X Pixel Art
+2337,Reverse Checkmark Pixel Art
+2338,Skull Pixel Art
+2339,Arrow Pixel Art
+2340,Shaded Skull Pixel Art
 2341,Pixel Art 241
 2342,Pixel Art 242
 2343,Pixel Art 243
@@ -1850,11 +1850,11 @@
 2357,Pixel Art 257
 2358,Pixel Art 258
 2359,Pixel Art 259
-2360,Pixel Art 260
-2361,Pixel Art 261
-2362,Pixel Art 262
-2363,Pixel Art 263
-2364,Pixel Art 264
+2360,Pillar Top Pixel Art
+2361,Pillar Center Pixel Art
+2362,Pillar Bottom Pixel Art
+2363,Broken Pillar Bottom Pixel Art
+2364,Pillar Head Pixel Art
 2365,Pixel Art 265
 2366,Pixel Art 266
 2367,Pixel Art 267
@@ -1877,8 +1877,8 @@
 2384,Pixel Art 284
 2385,Pixel Art 285
 2386,Pixel Art 286
-2387,Pixel Art 287
-2388,Pixel Art 288
+2387,Slightly Submerged Creature Pixel Art
+2388,Slightly Submerged Creature 2 Pixel Art
 2389,Pixel Art 289
 2390,Pixel Art 290
 2391,Pixel Art 291
@@ -1898,9 +1898,9 @@
 2405,Pixel Art 305
 2406,Pixel Art 306
 2407,Pixel Art 307
-2408,Pixel Art 308
-2409,Pixel Art 309
-2410,Pixel Art 310
+2408,Small Mushroom Pixel Art
+2409,Small Mushroom 2 Pixel Art
+2410,Small Mushroom 3 Pixel Art
 2411,Pixel Art 311
 2412,Pixel Art 312
 2413,Pixel Art 313
@@ -2028,7 +2028,7 @@
 2535,Pixel Art 435
 2536,Pixel Art 436
 2537,Pixel Art 437
-2538,Pixel Art 438
+2538,Tripled Spike Pixel Art
 2539,Pixel Art 439
 2540,Pixel Art 440
 2541,Pixel Art 441
@@ -2088,7 +2088,7 @@
 2595,Pixel Art 495
 2596,Pixel Art 496
 2597,Pixel Art 497
-2598,Pixel Art 498
+2598,Tripled Spike Pixel Art 2
 2599,Pixel Art 499
 2600,Pixel Art 500
 2601,Pixel Art 501
@@ -2111,7 +2111,7 @@
 2618,Pixel Art 518
 2619,Spider Web Middle Pixel Art
 2620,Spider Web Corner Pixel Art
-2621,Pixel Art 521
+2621,Spider Web Ripped Pixel Art
 2622,Pixel Art 522
 2623,Pixel Art 523
 2624,Pixel Art 524
@@ -2453,7 +2453,7 @@
 3004,Spider Orb
 3005,Spider Pad
 3006,Area Move Trigger
-3007,Area Rotate Triger
+3007,Area Rotate Trigger
 3008,Area Scale Trigger
 3009,Area Fade Trigger
 3010,Area Tint Trigger
@@ -2535,12 +2535,12 @@
 3089,Crystal 2 Outline
 3090,Thin Shaded Pipe Left-Down
 3091,Thin Shaded Pipe Left-Down Overlay
-3092,Pixel Art 1139
-3093,Pixel Art 1139
-3094,Pixel Art 1139
-3095,Pixel Art 1139
-3096,Pixel Art 1139
-3097,Pixel Art 1139
+3092,1/1 Block Pixel
+3093,1/4 Block Pixel
+3094,1/9 Block Pixel
+3095,1/16 Block Pixel
+3096,1/25 Block Pixel
+3097,1/36 Block Pixel
 3101,Pixel Art 601
 3102,Pixel Art 602
 3103,Pixel Art 603
