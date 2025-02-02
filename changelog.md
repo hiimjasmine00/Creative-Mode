@@ -1,3 +1,7 @@
+# 1.1.3
+- Fix mistake in about
+- Fix tab z ordering
+
 # 1.1.2
 - Mod compatibility fixes for:
   - Object Groups

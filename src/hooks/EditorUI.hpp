@@ -162,15 +162,18 @@ class $modify(MyEditorUI, EditorUI) {
 		addChild(fields->m_creativeMenu);
 
 		m_tabsMenu->setPositionY(m_toolbarHeight);
+		m_tabsMenu->setZOrder(5);
 		m_tabsMenu->setAnchorPoint({0.5f, 0.f});
 
 		if (CCNode* editTabsMenu = getChildByID("edit-tabs-menu")) {
 			editTabsMenu->setPositionY(m_toolbarHeight);
+			editTabsMenu->setZOrder(5);
 			editTabsMenu->setAnchorPoint({0.5f, 0.f});
 		}
 
 		if (CCNode* deleteTabsMenu = getChildByID("delete-tabs-menu")) {
 			deleteTabsMenu->setPositionY(m_toolbarHeight);
+			deleteTabsMenu->setZOrder(5);
 			deleteTabsMenu->setAnchorPoint({0.5f, 0.f});
 		}
 
