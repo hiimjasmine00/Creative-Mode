@@ -1,3 +1,8 @@
+# 1.1.0
+- Revamped Tab UI (Toggleable in settings)
+- Every objects (Excluding Pixel Art Objects) has been named 
+ - **Big thanks to @ouroya**
+
 # 1.0.10
 - Fixing touch prio once again :3
 

@@ -1,5 +1,4 @@
 #include "ScrollLayerPro.hpp"
-#include "HoverableCCMenuItemSpriteExtra.hpp"
 
 void ScrollLayerPro::addButtons(std::vector<CCMenuItem*> buttons) {
     m_buttons = buttons;
