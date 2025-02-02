@@ -1,3 +1,8 @@
+# 1.1.2
+- Mod compatibility fixes for:
+  - Object Groups
+  - Vanilla Pages
+
 # 1.1.1
 - Tooltip settings as requested :P
 

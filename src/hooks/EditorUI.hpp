@@ -10,6 +10,8 @@
 using namespace geode::prelude;
 using namespace std::placeholders;
 
+struct GroupInfo : CCObject {};
+
 class $modify(MyEditorUI, EditorUI) {
 
 	static void onModify(auto& self) {
@@ -92,9 +94,9 @@ class $modify(MyEditorUI, EditorUI) {
 		fields->m_lineNode->addChild(fields->m_linePart2);
 		fields->m_lineNode->setAnchorPoint({0, 0});
 		fields->m_lineNode->setPosition({0, m_toolbarHeight});
-		fields->m_lineNode->setZOrder(101);
+		fields->m_lineNode->setZOrder(9);
 
-		std::pair<float, float> edges = getSelectedButtonEdges();
+		std::pair<float, float> edges = getSelectedButtonEdges(this);
 
 		fields->m_linePart1->setContentWidth(edges.first);
 		fields->m_linePart2->setContentWidth(winSize.width - edges.second);
@@ -109,7 +111,7 @@ class $modify(MyEditorUI, EditorUI) {
 		fields->m_creativeMenu->setContentSize({30, 30});
 		fields->m_creativeMenu->setAnchorPoint({1, 1});
 		fields->m_creativeMenu->ignoreAnchorPointForPosition(false);
-		fields->m_creativeMenu->setZOrder(10);
+		fields->m_creativeMenu->setZOrder(9);
 		fields->m_creativeMenu->setID("creative-menu"_spr);
 
 		fields->m_tooltip = CCNode::create();
@@ -162,7 +164,40 @@ class $modify(MyEditorUI, EditorUI) {
 		m_tabsMenu->setPositionY(m_toolbarHeight);
 		m_tabsMenu->setAnchorPoint({0.5f, 0.f});
 
+		if (CCNode* editTabsMenu = getChildByID("edit-tabs-menu")) {
+			editTabsMenu->setPositionY(m_toolbarHeight);
+			editTabsMenu->setAnchorPoint({0.5f, 0.f});
+		}
+
+		if (CCNode* deleteTabsMenu = getChildByID("delete-tabs-menu")) {
+			deleteTabsMenu->setPositionY(m_toolbarHeight);
+			deleteTabsMenu->setAnchorPoint({0.5f, 0.f});
+		}
+
 		if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
+
+			if (CCNode* buildTabNav = getChildByID("build-tabs-menu-navigation-menu")) {
+				CCMenuItemSpriteExtra* prevButton = static_cast<CCMenuItemSpriteExtra*>(buildTabNav->getChildByID("prev-button"));
+				CCMenuItemSpriteExtra* nextButton = static_cast<CCMenuItemSpriteExtra*>(buildTabNav->getChildByID("next-button"));
+				SEL_MenuHandler prevSelectorCopy = prevButton->m_pfnSelector;
+
+				prevButton->setUserObject("orig-selector"_spr, CallFuncExt::create([prevButton, prevSelectorCopy] {
+					(prevButton->m_pListener->*prevSelectorCopy)(prevButton);
+				}));
+				prevButton->m_pfnSelector = menu_selector(MyEditorUI::arrowPrevHijack);
+				SEL_MenuHandler nextSelectorCopy = nextButton->m_pfnSelector;
+
+				nextButton->setUserObject("orig-selector"_spr, CallFuncExt::create([nextButton, nextSelectorCopy] {
+					(nextButton->m_pListener->*nextSelectorCopy)(nextButton);
+				}));
+				nextButton->m_pfnSelector = menu_selector(MyEditorUI::arrowNextHijack);
+
+				//hacky reset
+				(nextButton->m_pListener->*nextSelectorCopy)(nextButton);
+				(prevButton->m_pListener->*prevSelectorCopy)(prevButton);
+			}
+
+
 			for (CCNode* tab : CCArrayExt<CCNode*>(m_tabsMenu->getChildren())) {
 				changeBG(tab, 127, 172, 86);
 				HoverEnabledCCMenuItemSpriteExtra* hoverBtn = static_cast<HoverEnabledCCMenuItemSpriteExtra*>(tab);
@@ -185,20 +220,156 @@ class $modify(MyEditorUI, EditorUI) {
 		return true;
 	}
 
-	std::pair<float, float> getSelectedButtonEdges() {
+	void arrowPrevHijack(CCObject* sender) {
+		static_cast<CCActionInstant*>(static_cast<CCNode*>(sender)->getUserObject("orig-selector"_spr))->update(0);
+		setLines(EditorUI::get());
+	}
 
-		if (m_selectedMode == 2) {
-			CCNode* tab = m_tabsMenu->getChildByTag(m_selectedTab);
+	void arrowNextHijack(CCObject* sender) {
+		static_cast<CCActionInstant*>(static_cast<CCNode*>(sender)->getUserObject("orig-selector"_spr))->update(0);
+		setLines(EditorUI::get());
+	}
 
-			float xLeft = m_tabsMenu->getPositionX() - m_tabsMenu->getScaledContentWidth()/2;
+	std::pair<float, float> getSelectedButtonEdges(EditorUI* editorUI) {
+
+		if (!editorUI) return {0, 0};
+
+		if (editorUI->m_selectedMode == 2) {
+			CCNode* tab = editorUI->m_tabsMenu->getChildByTag(editorUI->m_selectedTab);
+			if (!tab->isVisible()) return {0, 0};
+
+			float xLeft = editorUI->m_tabsMenu->getPositionX() - editorUI->m_tabsMenu->getScaledContentWidth()/2;
 			float tabLeft = tab->getPositionX() - tab->getScaledContentWidth()/2;
 
-			float start = xLeft + tabLeft * m_tabsMenu->getScale();
-			float end = xLeft + (tabLeft + tab->getScaledContentWidth()) * m_tabsMenu->getScale();
+			float start = xLeft + tabLeft * editorUI->m_tabsMenu->getScale();
+			float end = xLeft + (tabLeft + tab->getScaledContentWidth()) * editorUI->m_tabsMenu->getScale();
 
 			return {start, end};
 		}
 		return {0, 0};
+	}
+
+	void onBarObjectButtonHover(CCObject* sender, CCPoint point, bool hovering, bool isStart) {
+		Mod* mod = Mod::get();
+		
+
+		if (isStart && hovering) {
+			
+			if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
+				if (ButtonSprite* buttonSprite = static_cast<CCNode*>(sender)->getChildByType<ButtonSprite*>(0)) {
+					buttonSprite->getChildByID("highlight")->setVisible(true);
+				}
+			}
+
+			std::string name;
+			if (sender->getTag() < 0) {
+				name = "Custom Object";
+			}
+			else if (sender->getTag() > 0) {
+				name = ObjectNames::get()->nameForID(sender->getTag());
+			}
+			
+			if (mod->getSettingValue<bool>("enable-tooltips")) {
+				bool isObjectGroup = false;
+				if (CCNode* parent = static_cast<CCNode*>(sender)->getParent()) {
+					if (CCNode* parent2 = parent->getParent()) {
+						isObjectGroup = parent2->getID() == "RaZooM";
+					}
+				}
+				setTooltipText(name, sender->getTag());
+				if (!isObjectGroup) {
+					setTooltipVisible(true);
+				}
+			}
+		}
+		if (isStart && !hovering) {
+			if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
+				if (ButtonSprite* buttonSprite = static_cast<CCNode*>(sender)->getChildByType<ButtonSprite*>(0)) {
+					buttonSprite->getChildByID("highlight")->setVisible(false);
+				}
+			}
+			if (mod->getSettingValue<bool>("enable-tooltips")) {
+				setTooltipVisible(false);
+			}
+		}
+		if (hovering) {
+			if (mod->getSettingValue<bool>("enable-tooltips")) {
+				setTooltipPosition(point);
+			}
+		}
+	}
+
+    CreateMenuItem* getCreateBtn(int id, int bg) {
+		auto ret = EditorUI::getCreateBtn(id, bg);
+    	Mod* mod = Mod::get();
+        ret->setTag(ret->m_objectID);
+
+    	if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
+			ret->m_scaleMultiplier = 1;
+			if (ButtonSprite* buttonSprite = ret->getChildByType<ButtonSprite*>(0)) {
+				if (buttonSprite->m_BGSprite) {
+					buttonSprite->m_BGSprite->setVisible(false);
+				}
+				else {
+					for (CCNode* child : CCArrayExt<CCNode*>(buttonSprite->getChildren())) {
+						if (typeinfo_cast<CCSprite*>(child)) {
+							if (typeinfo_cast<GameObject*>(child)) continue;
+							if (!child->getID().empty()) continue;
+							if (child->getContentSize() == CCSize{40, 40}) {
+								child->setVisible(false);
+								break;
+							}
+						}
+					}
+				}
+
+				if (buttonSprite->getChildByID("slot-bg")) return ret;
+
+                static_cast<HoverEnabledCCMenuItemSpriteExtra*>(static_cast<CCMenuItemSpriteExtra*>(ret))->enableHover(std::bind(&MyEditorUI::onBarObjectButtonHover, this, _1, _2, _3, _4));
+				
+				CCSprite* slotSprite = CCSprite::create("slot.png"_spr);
+				CCSprite* slotOverlay = CCSprite::create("slot-overlay.png"_spr);
+				slotSprite->setZOrder(-10);
+				slotSprite->setID("slot-bg");
+				slotOverlay->setZOrder(10);
+				slotOverlay->setVisible(false);
+				slotOverlay->setID("slot-overlay");
+				slotOverlay->setColor({255, 255, 0});
+
+				CCLayerColor* highlight = CCLayerColor::create({255, 255, 255, 127});
+				highlight->setVisible(false);
+				highlight->setID("highlight");
+				highlight->setZOrder(-11);
+
+				CCLayerColor* persistentHighlight = CCLayerColor::create({0, 150, 255, 127});
+				persistentHighlight->setID("persistent-highlight");
+				persistentHighlight->setZOrder(-12);
+
+				buttonSprite->addChild(slotSprite);
+				buttonSprite->addChild(slotOverlay);
+				buttonSprite->addChild(highlight);
+
+				highlight->setContentSize(buttonSprite->getContentSize());
+				highlight->setPositionY(highlight->getPositionY() + 2);
+
+				persistentHighlight->setContentSize(buttonSprite->getContentSize());
+				persistentHighlight->setPositionY(persistentHighlight->getPositionY() + 2);
+
+				slotSprite->setPosition(buttonSprite->getContentSize()/2);
+				slotSprite->setPositionY(slotSprite->getPositionY() + 2);
+				slotSprite->setScale(buttonSprite->getContentSize().width / slotSprite->getContentSize().width);
+				slotOverlay->setPosition(buttonSprite->getContentSize()/2);
+				slotOverlay->setPositionY(slotOverlay->getPositionY() + 2);
+				slotOverlay->setScale(buttonSprite->getContentSize().width / slotSprite->getContentSize().width);
+
+				queueInMainThread([ret, buttonSprite, persistentHighlight] {
+					if (typeinfo_cast<GroupInfo*>(ret->getUserObject())) {
+						buttonSprite->addChild(persistentHighlight);
+					}
+				});
+			}
+		}
+		return ret;
 	}
 
 	CCNode* createCoolBG(int opacity, int outlineOpacity, int overlayOpacity) {
@@ -270,12 +441,12 @@ class $modify(MyEditorUI, EditorUI) {
 		return containerNode;
 	}
 
-	void setLines() {
+	void setLines(EditorUI* editorUI) {
 		if (Mod::get()->getSettingValue<bool>("enable-new-tab-ui")) {
-			auto fields = m_fields.self();
+			auto fields = static_cast<MyEditorUI*>(editorUI)->m_fields.self();
 			CCSize winSize = CCDirector::get()->getWinSize();
 
-			std::pair<float, float> edges = getSelectedButtonEdges();
+			std::pair<float, float> edges = getSelectedButtonEdges(editorUI);
 
 			if (fields->m_linePart1) fields->m_linePart1->setContentWidth(edges.first);
 			if (fields->m_linePart2) fields->m_linePart2->setContentWidth(winSize.width - edges.second);
@@ -304,7 +475,7 @@ class $modify(MyEditorUI, EditorUI) {
 	void selectBuildTab(int tab) {
 		EditorUI::selectBuildTab(tab);
 		if (Mod::get()->getSettingValue<bool>("enable-new-tab-ui")) {
-			setLines();
+			setLines(this);
 			CCNode* currentTab = m_tabsMenu->getChildByTag(m_selectedTab);
 
 			if (m_selectedMode == 2) {
@@ -379,7 +550,7 @@ class $modify(MyEditorUI, EditorUI) {
     void toggleMode(cocos2d::CCObject* sender) {
 		EditorUI::toggleMode(sender);
 		if (m_fields->m_creativeMenu) m_fields->m_creativeMenu->setVisible(m_selectedMode == 2);
-		setLines();
+		setLines(this);
 	}
 
 	void showUI(bool show) {
@@ -427,7 +598,7 @@ class $modify(MyEditorUI, EditorUI) {
 		int id = sender->getTag();
 
 		HoverEnabledCCMenuItemSpriteExtra* btn = static_cast<HoverEnabledCCMenuItemSpriteExtra*>(sender);
-		CCNode* overlay = btn->getChildByID("slot-overlay");
+		CCSprite* overlay = static_cast<CCSprite*>(btn->getChildByID("slot-overlay"));
 		onCreateButton(sender);
 
 		m_selectedObjectIndex = id;
@@ -435,11 +606,13 @@ class $modify(MyEditorUI, EditorUI) {
 		updateCreateMenu(true);
 
 		for (CCMenuItem* btn : fields->m_objectSelectPopup->m_buttons) {
-			CCNode* overlay2 = btn->getChildByID("slot-overlay");
+			CCSprite* overlay2 = static_cast<CCSprite*>(btn->getChildByID("slot-overlay"));
 			overlay2->setVisible(btn->getTag() == id);
+			overlay2->setColor({255, 255, 255});
 		}
-
+		
 		overlay->setVisible(true);
+		overlay->setColor({255, 255, 255});
 	}
 
 	void onSearchHover(CCObject* sender, CCPoint point, bool hovering, bool isStart) {

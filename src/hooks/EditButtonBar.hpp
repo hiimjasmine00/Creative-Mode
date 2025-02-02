@@ -17,6 +17,5 @@ class $modify(MyEditButtonBar, EditButtonBar) {
 		std::vector<int> m_objectIDs{};
 	};
 
-    void onObjectButtonHover(CCObject* sender, CCPoint point, bool hovering, bool isStart);
 	void loadFromItems(CCArray* p0, int p1, int p2, bool p3);
 };
