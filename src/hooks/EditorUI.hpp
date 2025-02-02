@@ -382,6 +382,9 @@ class $modify(MyEditorUI, EditorUI) {
 		if (m_selectedMode == 2) fields->m_creativeMenu->setVisible(show);
 		if (Mod::get()->getSettingValue<bool>("enable-new-tab-ui")) {
 			fields->m_gradientBG->setVisible(false);
+			fields->m_newGradientBG->setVisible(show);
+			fields->m_lineNode->setVisible(show);
+			fields->m_darkenedBG->setVisible(show);
 		}
 	}
 
