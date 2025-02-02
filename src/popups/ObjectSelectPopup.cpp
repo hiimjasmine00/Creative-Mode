@@ -260,7 +260,6 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
     MyEditorUI* myEditorUI = static_cast<MyEditorUI*>(m_editorUI);
 
     auto fields = myEditorUI->m_fields.self();
-    std::vector<CCNode*> rows;
     m_buttons.clear();
 
     CCSize contentSize = { m_mainLayer->getContentSize().width - 35.f, m_mainLayer->getContentSize().height - 50.f };
@@ -353,13 +352,14 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
         if (dragging) setTooltipVisible(false);
     });
 
+    std::vector<CCNode*> rows;
+
     int itemsPerRow = 10;
     int i = 0;
     float center = (30 * ObjectSelectPopup::s_scaleMult) / 2.f;
     while (true) {
         LimitedCCMenu* row = LimitedCCMenu::create();
         row->m_scrollLayer = m_scrollLayer;
-        rows.push_back(row);
         row->setContentSize({contentSize.width, 30 * ObjectSelectPopup::s_scaleMult});
         bool shouldBreak = false;
         float posX = 0;
@@ -378,6 +378,7 @@ void ObjectSelectPopup::generateList(int tab, std::string query, bool reset){
             posX += gap;
         }
         if (row->getChildrenCount() != 0) {
+            rows.push_back(row);
             container->addChild(row);
         }
         i++;

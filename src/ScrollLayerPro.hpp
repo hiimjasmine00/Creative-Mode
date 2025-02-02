@@ -7,8 +7,8 @@ using namespace geode::prelude;
 class ScrollLayerPro : public geode::ScrollLayer {
 
 protected:
-    std::vector<CCMenuItem*> m_buttons{};
-    std::vector<CCNode*> m_rows{};
+    std::vector<Ref<CCMenuItem>> m_buttons{};
+    std::vector<Ref<CCNode>> m_rows{};
     std::function<void(bool)> m_dragCallback;
     float m_rowHeight;
     int m_rowCount;

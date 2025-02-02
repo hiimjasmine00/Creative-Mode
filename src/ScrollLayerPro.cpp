@@ -1,11 +1,11 @@
 #include "ScrollLayerPro.hpp"
 
 void ScrollLayerPro::addButtons(std::vector<CCMenuItem*> buttons) {
-    m_buttons = buttons;
+    m_buttons = std::vector<Ref<CCMenuItem>>(buttons.begin(), buttons.end());
 }
 
 void ScrollLayerPro::addRows(std::vector<CCNode*> nodes, float rowHeight, int visibleRowCount) {
-    m_rows = nodes;
+    m_rows = std::vector<Ref<CCNode>>(nodes.begin(), nodes.end());
     m_rowHeight = rowHeight;
     m_rowCount = visibleRowCount;
     int start = 0;
@@ -13,6 +13,7 @@ void ScrollLayerPro::addRows(std::vector<CCNode*> nodes, float rowHeight, int vi
         row->setVisible(start < visibleRowCount);
         start++;
     }
+    schedule(schedule_selector(ScrollLayerPro::listenForPosChange));
 }
 
 void ScrollLayerPro::setButtonsEnabled(bool on){
@@ -24,6 +25,8 @@ void ScrollLayerPro::setButtonsEnabled(bool on){
 }
 
 void ScrollLayerPro::updateRowVisibility() {
+    if (m_rows.empty()) return;
+
     float scrollPos = m_contentLayer->getPositionY();
 
     float rowsHeight = m_rowCount * m_rowHeight;
@@ -32,8 +35,10 @@ void ScrollLayerPro::updateRowVisibility() {
     float rowMax = -(scrollPos) + rowsHeight + m_rowHeight;
 
     for (CCNode* row : m_rows) {
-        float rowY = row->getPosition().y;
-        row->setVisible(rowY > rowMin && rowY < rowMax);
+        if (row) {
+            float rowY = row->getPosition().y;
+            row->setVisible(rowY > rowMin && rowY < rowMax);
+        }
     }
 }
 
@@ -65,7 +70,6 @@ void ScrollLayerPro::ccTouchEnded(cocos2d::CCTouch* p0, cocos2d::CCEvent* p1) {
 
 ScrollLayerPro::ScrollLayerPro(CCRect const& rect, std::function<void(bool)> dragCallback, bool scrollWheelEnabled, bool vertical) : ScrollLayer(rect, scrollWheelEnabled, vertical) {
     m_dragCallback = dragCallback;
-    schedule(schedule_selector(ScrollLayerPro::listenForPosChange), 1/240.f);
 }
 
 ScrollLayerPro* ScrollLayerPro::create(CCRect const& rect, std::function<void(bool)> dragCallback, bool scroll, bool vertical) {

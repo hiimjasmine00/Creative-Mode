@@ -1,3 +1,6 @@
+# 1.1.5
+- Fix a crash
+
 # 1.1.4
 - Remember to save changes in about :3
 - Redesign to fit more like GD than Minecraft
