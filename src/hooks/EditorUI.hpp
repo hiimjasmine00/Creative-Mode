@@ -370,10 +370,16 @@ class $modify(MyEditorUI, EditorUI) {
 				persistentHighlight->setPositionY(persistentHighlight->getPositionY() + 2);
 				persistentHighlight->setScale(buttonSprite->getContentSize().width / persistentHighlight->getContentSize().width);
 
+				ret->retain();
+				buttonSprite->retain();
+				persistentHighlight->retain();
 				queueInMainThread([ret, buttonSprite, persistentHighlight] {
 					if (typeinfo_cast<GroupInfo*>(ret->getUserObject())) {
 						buttonSprite->addChild(persistentHighlight);
 					}
+					ret->release();
+					buttonSprite->release();
+					persistentHighlight->release();
 				});
 			}
 		}
