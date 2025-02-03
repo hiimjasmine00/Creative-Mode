@@ -17,7 +17,6 @@ class $modify(MyEditorUI, EditorUI) {
 	static void onModify(auto& self) {
         (void) self.setHookPriorityAfterPost("EditorUI::init", "hjfod.betteredit");
         (void) self.setHookPriorityAfterPost("EditorUI::init", "alphalaneous.vanilla_pages");
-        (void) self.setHookPriorityAfterPost("EditorUI::onCreateButton", "alphalaneous.editorsounds");
     }
 
 	struct Fields {
@@ -316,7 +315,12 @@ class $modify(MyEditorUI, EditorUI) {
 				else {
 					for (CCNode* child : CCArrayExt<CCNode*>(buttonSprite->getChildren())) {
 						if (typeinfo_cast<CCSprite*>(child)) {
-							if (typeinfo_cast<GameObject*>(child)) continue;
+							if (GameObject* obj = typeinfo_cast<GameObject*>(child)) {
+								queueInMainThread([this, obj] {
+									setColorRecursive(obj);
+								});
+								continue;
+							}
 							if (!child->getID().empty()) continue;
 							if (child->getContentSize() == CCSize{40, 40}) {
 								child->setVisible(false);
@@ -604,6 +608,11 @@ class $modify(MyEditorUI, EditorUI) {
 					if (CCNode* overlay = buttonSprite->getChildByID("slot-overlay")) {
 						overlay->setVisible(item->m_objectID == m_selectedObjectIndex);
 					}
+					if (item->m_objectID == m_selectedObjectIndex) {
+						if (GameObject* obj = buttonSprite->getChildByType<GameObject*>(0)) {
+							fixColorRecursive(obj);
+						}
+					}
 				}
 			}
 			for (CreateMenuItem* item : CCArrayExt<CreateMenuItem*>(m_customObjectButtonArray)) {
@@ -611,6 +620,38 @@ class $modify(MyEditorUI, EditorUI) {
 					if (CCNode* overlay = buttonSprite->getChildByID("slot-overlay")) {
 						overlay->setVisible(item->m_objectID == m_selectedObjectIndex);
 					}
+				}
+			}
+		}
+	}
+
+	void setColorRecursive(CCNode* node) {
+		if (CCNodeRGBA* nodeRGBA = typeinfo_cast<CCNodeRGBA*>(node)) {
+			nodeRGBA->setUserObject("color"_spr, ObjWrapper<ccColor3B>::create(nodeRGBA->getColor()));
+		}
+		for (CCNode* child : CCArrayExt<CCNode*>(node->getChildren())) {
+			setColorRecursive(child);
+		}
+	}
+
+	void fixColorRecursive(CCNode* node) {
+		if (CCNodeRGBA* nodeRGBA = typeinfo_cast<CCNodeRGBA*>(node)) {
+			if (ObjWrapper<ccColor3B>* color = static_cast<ObjWrapper<ccColor3B>*>(nodeRGBA->getUserObject("color"_spr))) {
+				nodeRGBA->setColor(color->getValue());
+			}
+		}
+		for (CCNode* child : CCArrayExt<CCNode*>(node->getChildren())) {
+			fixColorRecursive(child);
+		}
+	}
+
+	void onCreateButton(CCObject* sender) {
+		EditorUI::onCreateButton(sender);
+		if (Mod::get()->getSettingValue<bool>("enable-new-tab-ui")) {
+			CreateMenuItem* btn = static_cast<CreateMenuItem*>(sender);
+			if (ButtonSprite* buttonSprite = btn->getChildByType<ButtonSprite*>(0)) {
+				if (GameObject* obj = buttonSprite->getChildByType<GameObject*>(0)) {
+					fixColorRecursive(obj);
 				}
 			}
 		}

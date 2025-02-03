@@ -1,3 +1,7 @@
+# 1.1.9
+- Selecting objects should no longer darken them
+- Cross platform hover
+
 # 1.1.8
 - Fix a crash that can only happen if you have Object Groups installed and you enter the editor specifically from within the level pause menu, it works fine anywhere else tho. It's fixed now thank god, yippee!
 

@@ -51,11 +51,11 @@ void ScrollLayerPro::listenForPosChange(float dt) {
 
 void ScrollLayerPro::ccTouchMoved(cocos2d::CCTouch* p0, cocos2d::CCEvent* p1) {
 	CCScrollLayerExt::ccTouchMoved(p0, p1);
-    m_dragCallback(true);
 
     if (m_buttonsDisabled) return;
     float dY = std::abs(p0->getStartLocation().y - p0->getLocation().y);
-    if (dY > 3) {
+    if (dY > 6) {
+        m_dragCallback(true);
         m_buttonsDisabled = true;
         setButtonsEnabled(false);
     }

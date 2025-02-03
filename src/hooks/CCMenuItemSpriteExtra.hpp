@@ -19,6 +19,22 @@ class $modify(HoverEnabledCCMenuItemSpriteExtra, CCMenuItemSpriteExtra) {
         }
 	};
 
+    #ifdef GEODE_IS_ANDROID
+
+    void selected() {
+        CCMenuItemSpriteExtra::selected();
+        CCPoint world = convertToWorldSpace(getContentSize());
+        hover(this, world, true);
+    }
+
+    void unselected() {
+        CCMenuItemSpriteExtra::unselected();
+        CCPoint world = convertToWorldSpace(getContentSize());
+        hover(this, world, false);
+    }
+
+    #endif
+
     void enableHover(std::function<void(CCObject* sender, CCPoint, bool, bool)> hoverCallback) {
         auto fields = m_fields.self();
         fields->m_self = static_cast<CCMenuItemSpriteExtra*>(this);

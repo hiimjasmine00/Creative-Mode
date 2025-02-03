@@ -58,10 +58,39 @@ void Hover::updateHover(CCPoint point) {
     }
 }
 
+void Hover::onMouseMove(CCPoint point) {
+    updateHover(point);
+}
+
+void Hover::update(float dt) {
+    CCPoint mousePos = getMousePos();
+    if (mousePos != m_lastMousePos) {
+        m_lastMousePos = mousePos;
+        onMouseMove(mousePos);
+    }
+}
+
+Hover* Hover::create() {
+    auto ret = new Hover();
+    ret->autorelease();
+    return ret;
+}
+
 Hover* Hover::get() {
     static Hover* instance = nullptr;
     if (!instance) {
-        instance = new Hover();
+        instance = Hover::create();
+        instance->retain();
     }
     return instance;
 }
+
+#ifdef GEODE_IS_DESKTOP
+
+$execute {
+    Loader::get()->queueInMainThread([]{
+        CCScheduler::get()->scheduleUpdateForTarget(Hover::get(), INT_MAX, false);
+    });
+}
+
+#endif
