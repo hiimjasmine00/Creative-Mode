@@ -1,3 +1,6 @@
+# 1.1.6
+- Customize Gradient Colors :3
+
 # 1.1.5
 - Fix a crash
 

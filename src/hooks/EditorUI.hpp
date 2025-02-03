@@ -67,13 +67,13 @@ class $modify(MyEditorUI, EditorUI) {
 			fields->m_gradientBG->setVisible(false);
 		}
 
-		fields->m_newGradientBG = CCLayerGradient::create({127, 127, 127, 200}, {100, 100, 100, 127});
+		fields->m_newGradientBG = CCLayerGradient::create(mod->getSettingValue<ccColor4B>("gradient-top-color"), mod->getSettingValue<ccColor4B>("gradient-bottom-color"));
 		fields->m_newGradientBG->setContentSize({winSize.width, m_toolbarHeight});
 		fields->m_newGradientBG->setAnchorPoint({0, 0});
 		fields->m_newGradientBG->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
 		fields->m_newGradientBG->setZOrder(-1);
 
-		fields->m_darkenedBG = CCLayerColor::create({0, 0, 0, 145});
+		fields->m_darkenedBG = CCLayerColor::create({0, 0, 0, static_cast<GLubyte>(255 * mod->getSettingValue<float>("gradient-overlay-opacity"))});
 		fields->m_darkenedBG->setContentSize({winSize.width, m_toolbarHeight});
 		fields->m_darkenedBG->setAnchorPoint({0, 0});
 
@@ -207,7 +207,7 @@ class $modify(MyEditorUI, EditorUI) {
 				hoverBtn->setUserObject("orig-y"_spr, CCFloat::create(hoverBtn->getPositionY()));
 				hoverBtn->enableHover(std::bind(&MyEditorUI::onTabHover, this, _1, _2, _3, _4));
 			}
-			changeBG(m_tabsMenu->getChildByTag(m_selectedTab), 200, 255, 145);
+			changeBG(m_tabsMenu->getChildByTag(m_selectedTab), mod->getSettingValue<ccColor4B>("gradient-top-color").a, 255, 255 * mod->getSettingValue<float>("gradient-overlay-opacity"));
 		}
 
 		for (MyEditButtonBar* buttonBar : CCArrayExt<MyEditButtonBar*>(m_createButtonBars)) {
@@ -380,9 +380,15 @@ class $modify(MyEditorUI, EditorUI) {
 		return ret;
 	}
 
+	ccColor3B cc4BTo3B(ccColor4B color) {
+		return {color.r, color.g, color.b};
+	}
+
 	CCNode* createCoolBG(int opacity, int outlineOpacity, int overlayOpacity) {
 
 		CCNode* containerNode = CCNode::create();
+
+		Mod* mod = Mod::get();
 
 		CCSprite* outlineHalf1 = CCSprite::create("GJ_square07.png");
 		CCSprite* outlineHalf2 = CCSprite::create("GJ_square07.png");
@@ -408,14 +414,14 @@ class $modify(MyEditorUI, EditorUI) {
 		innerPartHalf1->setOpacity(opacity);
 		innerPartHalf1->setPositionX(innerPartHalf1->getContentWidth());
 		innerPartHalf1->setAnchorPoint({0, 0});
-		innerPartHalf1->setColor({175, 175, 175});
+		innerPartHalf1->setColor(cc4BTo3B(mod->getSettingValue<ccColor4B>("gradient-top-color")));
 		innerPartHalf1->setZOrder(-2);
 		innerPartHalf1->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
 
 		innerPartHalf2->setTextureRect({0, 0, innerPartHalf2->getContentWidth()/scaleFactor, innerPartHalf2->getContentHeight()/scaleFactor});
 		innerPartHalf2->setOpacity(opacity);
 		innerPartHalf2->setAnchorPoint({0, 0});
-		innerPartHalf2->setColor({175, 175, 175});
+		innerPartHalf2->setColor(cc4BTo3B(mod->getSettingValue<ccColor4B>("gradient-top-color")));
 		innerPartHalf2->setZOrder(-2);
 		innerPartHalf2->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
 
@@ -482,7 +488,8 @@ class $modify(MyEditorUI, EditorUI) {
 
 	void selectBuildTab(int tab) {
 		EditorUI::selectBuildTab(tab);
-		if (Mod::get()->getSettingValue<bool>("enable-new-tab-ui")) {
+		Mod* mod = Mod::get();
+		if (mod->getSettingValue<bool>("enable-new-tab-ui")) {
 			setLines(this);
 			CCNode* currentTab = m_tabsMenu->getChildByTag(m_selectedTab);
 
@@ -490,7 +497,7 @@ class $modify(MyEditorUI, EditorUI) {
 				for (CCNode* tab : CCArrayExt<CCNode*>(m_tabsMenu->getChildren())) {
 					changeBG(tab, 127, 172, 86);
 				}
-				changeBG(currentTab, 200, 255, 145);
+				changeBG(currentTab, mod->getSettingValue<ccColor4B>("gradient-top-color").a, 255, 255 * mod->getSettingValue<float>("gradient-overlay-opacity"));
 			}
 			HoverEnabledCCMenuItemSpriteExtra* btn = static_cast<HoverEnabledCCMenuItemSpriteExtra*>(currentTab);
 			if (CCFloat* yFloat = static_cast<CCFloat*>(btn->getUserObject("orig-y"_spr))) {
