@@ -507,6 +507,7 @@ class $modify(MyEditorUI, EditorUI) {
 				}
 			}
 		}
+		setTooltipVisible(false);
 	}
 
 	void setTooltipText(std::string text, int id) {
@@ -546,26 +547,27 @@ class $modify(MyEditorUI, EditorUI) {
 
 	void setTooltipVisible(bool visible) {
 		auto fields = m_fields.self();
+		if (!fields->m_tooltipText || !fields->m_tooltip) return;
     	if (std::string_view(fields->m_tooltipText->getString()).empty()) return;
+
 		if (!fields->m_queueVisible && visible) {
 			fields->m_queueVisible = true;
-			if (fields->m_tooltip) {
-				fields->m_tooltip->retain();
-				queueInMainThread([this, fields] {
-					fields->m_tooltip->setVisible(true);
-					fields->m_tooltip->release();
-					fields->m_queueVisible = false;
-				});
-			}
+			fields->m_tooltip->retain();
+			queueInMainThread([this, fields] {
+				fields->m_tooltip->setVisible(true);
+				fields->m_tooltip->release();
+				fields->m_queueVisible = false;
+			});
 		}
 		
-		if (fields->m_tooltip) fields->m_tooltip->setVisible(visible);
+		fields->m_tooltip->setVisible(visible);
 	}
 
     void toggleMode(cocos2d::CCObject* sender) {
 		EditorUI::toggleMode(sender);
 		if (m_fields->m_creativeMenu) m_fields->m_creativeMenu->setVisible(m_selectedMode == 2);
 		setLines(this);
+		setTooltipVisible(false);
 	}
 
 	void showUI(bool show) {
@@ -577,8 +579,8 @@ class $modify(MyEditorUI, EditorUI) {
 			fields->m_newGradientBG->setVisible(show);
 			fields->m_lineNode->setVisible(show);
 			fields->m_darkenedBG->setVisible(show);
-			setTooltipVisible(false);
 		}
+		setTooltipVisible(false);
 	}
 
 	void onCreativeMenu(CCObject* sender) {

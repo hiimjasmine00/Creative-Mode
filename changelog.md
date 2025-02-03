@@ -1,3 +1,6 @@
+# 1.1.7
+- Fix some tooltip visibility bugs
+
 # 1.1.6
 - Customize Gradient Colors :3
 
